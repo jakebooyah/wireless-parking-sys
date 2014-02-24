@@ -1,4 +1,4 @@
-﻿Minutes Of Meetings
+Minutes Of Meetings
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
@@ -596,7 +596,7 @@ Second Semester
 ------------------------------------------------------------------------------------------------------------
 
 Meeting: Informal 11
-Date: 14/2/2013 
+Date: 14/2/2014 
 Time: 1600 - 1800
 Venue: Jake’s place
 
@@ -609,7 +609,7 @@ Syamil
 Discussed:
 
 -Progress over the holiday
--Devided coding jobs
+-Divided coding jobs
 -Jake and Zhi En work on taking pic and image processing algorithm
 -Syamil and Mike work on online server
 
@@ -617,5 +617,39 @@ Discussed:
 To do:
 
 -Study and research on individual's field
+
+----------------------------------------------------------------------------------------------------------------
+
+Meeting: Formal 5
+Date: 20/2/2014 
+Time: 1600 - 1700
+Venue: Selvaraj’s Office
+
+Attendance: 
+Zhi En
+Michael 
+Wei Qi
+Syamil
+
+Discussed:
+
+-Updated Selvaraj on our progress over the holidays.
+-Asked for comments on our Interim Report.
+-Project’s technical limitations to be solved:
+ 1) Camera cannot take picture clearly at night.
+ 2) Camera might falsely recognise non-vehicle objects (e.g. human, animals) as vehicles.
+ 3) Difficulty in collecting actual map of the campus and integrating it into our android app.
+ 
+-Suggestions by Selvaraj:
+ 1) Limit the operating hours of the system to office hours only.
+ 2) Camera is constantly updating its status within every 5s interval.
+ 3) Creating a parking lot prototype with simplified model of the campus map. 
+
+To do:
+
+-Produce the first prototypes:
+ i) Camera module - Jake & Zhi
+ ii) Server module - Mike & Syamil
+-Implementation of the parking lot simulation model.
 
 ----------------------------------------------------------------------------------------------------------------
