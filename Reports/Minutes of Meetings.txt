@@ -610,4 +610,12 @@ Discussed:
 
 -Progress over the holiday
 -Devided coding jobs
--Jake and Zhi En work on sensor 
+-Jake and Zhi En work on taking pic and image processing algorithm
+-Syamil and Mike work on online server
+
+
+To do:
+
+-Study and research on individual's field
+
+----------------------------------------------------------------------------------------------------------------
