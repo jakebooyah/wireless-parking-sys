@@ -6,11 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import com.example.cameraapp.util.SystemUiHider;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Build;
@@ -24,6 +24,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -32,11 +33,12 @@ import android.view.WindowManager;
  * @see SystemUiHider
  */
 public class CameraActivity extends Activity {
-	
 	private static final String TAG = null;
 	private SurfaceView cameraPreview;
 	private SurfaceHolder cameraPreviewHolder;
 	private Camera mCamera;
+	private static Timer mTimer;
+	private CameraTimer mTask;
 	private static boolean inPreview = false;
 	
 	/**
@@ -154,14 +156,13 @@ public class CameraActivity extends Activity {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		mTimer.cancel();
 		if (inPreview) {
-		      mCamera.stopPreview();
-		    }
-
-		    mCamera.release();
-		    mCamera=null;
-		    inPreview=false;
-
+			mCamera.stopPreview();
+		}
+		mCamera.release();
+	    mCamera=null;
+	    inPreview=false;
 		super.onPause();
 	}
 
@@ -169,7 +170,6 @@ public class CameraActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		
 		if(mCamera == null) {
 			mCamera = getCamera();
 		}
@@ -210,7 +210,7 @@ public class CameraActivity extends Activity {
 	}
 	
 	/** A safe way to get an instance of the Camera object. */
-	public static Camera getCamera(){
+	public static Camera getCamera() {
 	    Camera c = null;
 	    try {
 	        c = Camera.open(); // attempt to get a Camera instance
@@ -221,26 +221,21 @@ public class CameraActivity extends Activity {
 	    return c; // returns null if camera is unavailable
 	}
 	
-	public class CameraTimer implements Runnable {
-		int i = 0;
+	public class CameraTimer extends TimerTask {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			while(inPreview) {
-				
-				try {
-					Thread.sleep(5000);
-					mCamera.takePicture(null, null, mPicture);
-					
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			mCamera.takePicture(null, null, mPicture);
+			CameraActivity.this.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					Toast.makeText(getApplicationContext(), "Picture saved", Toast.LENGTH_SHORT).show();
 				}
-			}
-			
-		}
+			});
+		}	
 	}
-	
+		
 	SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
 		@Override
 		public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -281,36 +276,19 @@ public class CameraActivity extends Activity {
 	            mCamera.setPreviewDisplay(holder);
 	            mCamera.startPreview();
 	            inPreview = true;
-	            /*Handler aHandler = new Handler();
-	            aHandler.postDelayed(new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						mCamera.takePicture(null, null, mPicture);
-					}
-	            	
-	            }, 5000);*/
-	            CameraTimer mTimer = new CameraTimer();
-	            Thread t = new Thread(mTimer);
-	            t.start();
+	            mTimer = new Timer();
+	            mTask = new CameraTimer();
+	            mTimer.schedule(mTask, 5000, 5000);   
 	        } catch (IOException e) {
 	            Log.d(TAG, "Error setting camera preview: " + e.getMessage());
 	            mCamera.release();
 	            mCamera = null;
-	        } /*catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+	        } 
 		}
 		
 		@Override
 		public void surfaceDestroyed(SurfaceHolder holder) {
 			// TODO Auto-generated method stub
-			//mCamera.stopPreview();
-			//inPreview = false;
-			//mCamera.release();
-			//mCamera = null;
 		}
 	};
 	
@@ -338,7 +316,6 @@ public class CameraActivity extends Activity {
 	}
 	
 	private PictureCallback mPicture = new PictureCallback() {
-
 	    @Override
 	    public void onPictureTaken(byte[] data, Camera camera) {
 	    	try {
