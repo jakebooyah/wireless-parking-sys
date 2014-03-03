@@ -1,4 +1,4 @@
-Minutes Of Meetings
+﻿Minutes Of Meetings
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
@@ -653,3 +653,27 @@ To do:
 -Implementation of the parking lot simulation model.
 
 ----------------------------------------------------------------------------------------------------------------
+Meeting: Informal 12
+Date: 27/02/2014
+Time: 1600-1700
+Venue: The Core
+
+Attendance: 
+Zhi En
+Michael 
+Wei Qi
+Syamil
+
+Discussed
+- Review and checking the milestone that has been release on the previous two weeks.
+- Discuss the Progression of our group project until this week
+- Divide new milestone for each group member to be completed.
+- Discuss the layout of the map to be used.
+
+To Do:
+Continue doing the first protottypes:
+1) Improving the camera module and algorithm - Jake
+2) Making database - Zhi & Mike
+3) Design the map - Syamil
+
+------------------------------------------------------------------------
