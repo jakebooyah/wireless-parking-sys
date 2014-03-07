@@ -1,13 +1,33 @@
 package com.example.cameraapp;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.example.cameraapp.util.SystemUiHider;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -382,7 +402,7 @@ public class CameraActivity extends Activity
 	    @Override
 	    public void onPictureTaken(byte[] data, Camera camera) 
 	    {
-	    	if(count < 3) {
+	    	if(count < 2) {
 	   			if(count == 0) {
 	   				pic1 = BitmapFactory.decodeByteArray(data, 0, data.length);
 	   				count++;
@@ -390,11 +410,6 @@ public class CameraActivity extends Activity
 	   			else if(count == 1) {
 	   				pic2 = BitmapFactory.decodeByteArray(data, 0, data.length);
 	   				new Compare().execute(pic1,pic2);
-	   				count++;
-	   			}
-	   			else if(count == 2) {
-	   				pic3 = BitmapFactory.decodeByteArray(data, 0, data.length);
-	   				new Compare().execute(pic1,pic2,pic3);
 	   				count++;
 	   			}
 	    	}
@@ -417,6 +432,41 @@ public class CameraActivity extends Activity
 	    }
 	};
 	
+	public Bitmap merge(Bitmap pic1, Bitmap pic2) {
+		// Create new array
+    	int width = pic1.getWidth();
+    	int height = pic1.getHeight();
+    	int[] pix1 = new int[width * height];
+    	pic1.getPixels(pix1, 0, width, 0, 0, width, height);
+    	
+    	int[] pix2 = new int[width * height];
+    	pic2.getPixels(pix2, 0, width, 0, 0, width, height);
+    	
+    	//int[] pix3 = new int[width * height];
+    	
+    	// Apply pixel-by-pixel change
+    	int index = 0;
+    	for (int y = 0; y < height; y++)
+    	{
+    		for (int x = 0; x < width; x++)
+    		{
+    			int r1 = (pix1[index] >> 16) & 0xff;
+    			
+    			int r2 = (pix2[index] >> 16) & 0xff;
+    			
+    			int r = (r1 + r2)/2;
+    			
+    			//pix3[index] = 0xff000000 | (r << 16);
+    			index++;
+    		} // x
+    	} // y
+    	
+    	// Change bitmap to use new array
+    	Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+    	bitmap.setPixels(pix2, 0, width, 0, 0, width, height);    	
+    	return bitmap;
+	}
+	
 	public class Compare extends AsyncTask<Bitmap, Void, Integer> {
 
 		@Override
@@ -435,7 +485,7 @@ public class CameraActivity extends Activity
 	    	int size = width*height;
 	    	int[] pix1 = new int[width * height];
 	    	int[] pix2 = new int[width * height];
-	    	int[] pix3 = new int[width * height];
+	    	//int[] pix3 = new int[width * height];
 	    	
 	    	// Apply pixel-by-pixel change
 		   	if(params.length == 2) {
@@ -464,7 +514,7 @@ public class CameraActivity extends Activity
 			    } // y
 			   	diffPer = ((double)diffCount/size)*100;
 		   	}
-		   	else if(params.length == 3) {
+		   	/*else if(params.length == 3) {
 		   		params[0].getPixels(pix1, 0, width, 0, 0, width, height);
 		    	params[1].getPixels(pix2, 0, width, 0, 0, width, height);
 		    	params[2].getPixels(pix3, 0, width, 0, 0, width, height);
@@ -491,10 +541,9 @@ public class CameraActivity extends Activity
 		    	} // y
 		    	diffPer = ((double)diffCount/size)*100;
 
-		   	}
+		   	}*/
 		   	
-		
-			return (int)diffPer;
+		   	return (int)diffPer;
 		}
 
 		@Override
@@ -503,12 +552,45 @@ public class CameraActivity extends Activity
 			super.onPostExecute(result);
 			//text.append("Different count is " + diffCount + "\n");
 	    	//text.append("Size is " + size + "\n");
-			text.append("Difference is " + result + "%\n");
-		}
-		
-		
-		
+			if(result > 50) {
+				new HttpWebService().execute("zhidragon",swap());
+			}
+			text.append("Difference is " + result + "%\n");	
+		}	
 	}
-
 	
+	int count = 1;
+	public String swap() {
+		if(count%2 == 0) {
+			count++;
+			return "0";
+		}
+		else {
+			count++;
+			return "1";
+		}			
+	}
+	
+	public class HttpWebService extends AsyncTask<String, Void, Void> {
+		
+		private static final String url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/create_record3.php";
+		
+		@Override
+		protected Void doInBackground(String... params) {
+			// TODO Auto-generated method stub
+            // Building Parameters
+            List<NameValuePair> param = new ArrayList<NameValuePair>();
+            param.add(new BasicNameValuePair("sensor_id", params[0]));
+            param.add(new BasicNameValuePair("status",params[1]));
+           
+            // getting JSON Object
+            // Note that create product url accepts POST method
+            JSONObject json = new JSONParser().makeHttpRequest(url, "POST", param);
+ 
+            // check log cat fro response
+            Log.d("Create Response", json.toString());
+ 
+            return null;
+		}	
+	}
 }
