@@ -64,8 +64,6 @@ public class CameraActivity extends Activity
 	private CameraTimer mTask;
 	private static boolean inPreview = false;
 	private static TextView text;
-	private static String timeStamp;
-	
 	
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -180,17 +178,6 @@ public class CameraActivity extends Activity
 
 	}
 
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) 
-	{
-		super.onPostCreate(savedInstanceState);
-
-		// Trigger the initial hide() shortly after the activity has been
-		// created, to briefly hint to the user that UI controls
-		// are available.
-		delayedHide(100);
-	}
-	
 	@Override
 	protected void onPause() 
 	{
@@ -335,13 +322,9 @@ public class CameraActivity extends Activity
 		@Override
 		public void surfaceCreated(SurfaceHolder holder) 
 		{
-			Camera.Parameters mCameraDev = mCamera.getParameters();
 			// TODO Auto-generated method stub
 			// The Surface has been created, now tell the camera where to draw the preview.
 	        try {
-	        	
-	        	mCameraDev.setColorEffect(android.hardware.Camera.Parameters.EFFECT_MONO);
-	            mCamera.setParameters(mCameraDev);
 	            mCamera.setPreviewDisplay(holder);
 	            mCamera.startPreview();
 	            inPreview = true;
@@ -365,38 +348,10 @@ public class CameraActivity extends Activity
 		}
 	};
 	
-	/** Create a File for saving an image or video */
-	private static File getOutputMediaFile()
-	{
-	    // To be safe, you should check that the SDCard is mounted
-	    // using Environment.getExternalStorageState() before doing this.
-
-	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyCameraApp");
-		// This location works best if you want the created images to be shared
-	    // between applications and persist after your app has been uninstalled.
-	    
-	    // Create the storage directory if it does not exist
-	    if (! mediaStorageDir.exists())
-	    {
-	        if (! mediaStorageDir.mkdirs())
-	        {
-	            Log.d("MyCameraApp", "failed to create directory");
-	            text.append("Failed to create picture directory\n");
-	            return null;
-	        }
-	    }
-
-	    // Create a media file name
-	    timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg");
-	    return mediaFile;
-	}
-	
 	private PictureCallback mPicture = new PictureCallback() 
 	{
 		Bitmap pic1;
 		Bitmap pic2;
-		Bitmap pic3;
 		int count = 0;
 		
 	    @Override
@@ -432,41 +387,6 @@ public class CameraActivity extends Activity
 	    }
 	};
 	
-	public Bitmap merge(Bitmap pic1, Bitmap pic2) {
-		// Create new array
-    	int width = pic1.getWidth();
-    	int height = pic1.getHeight();
-    	int[] pix1 = new int[width * height];
-    	pic1.getPixels(pix1, 0, width, 0, 0, width, height);
-    	
-    	int[] pix2 = new int[width * height];
-    	pic2.getPixels(pix2, 0, width, 0, 0, width, height);
-    	
-    	//int[] pix3 = new int[width * height];
-    	
-    	// Apply pixel-by-pixel change
-    	int index = 0;
-    	for (int y = 0; y < height; y++)
-    	{
-    		for (int x = 0; x < width; x++)
-    		{
-    			int r1 = (pix1[index] >> 16) & 0xff;
-    			
-    			int r2 = (pix2[index] >> 16) & 0xff;
-    			
-    			int r = (r1 + r2)/2;
-    			
-    			//pix3[index] = 0xff000000 | (r << 16);
-    			index++;
-    		} // x
-    	} // y
-    	
-    	// Change bitmap to use new array
-    	Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-    	bitmap.setPixels(pix2, 0, width, 0, 0, width, height);    	
-    	return bitmap;
-	}
-	
 	public class Compare extends AsyncTask<Bitmap, Void, Integer> {
 
 		@Override
@@ -485,7 +405,6 @@ public class CameraActivity extends Activity
 	    	int size = width*height;
 	    	int[] pix1 = new int[width * height];
 	    	int[] pix2 = new int[width * height];
-	    	//int[] pix3 = new int[width * height];
 	    	
 	    	// Apply pixel-by-pixel change
 		   	if(params.length == 2) {
@@ -497,15 +416,17 @@ public class CameraActivity extends Activity
 			   		for (int x = 0; x < width; x++)
 			   		{
 			   			int r1 = (pix1[index] >> 16) & 0xff;
-			   			//int g1 = (pix1[index] >> 8) & 0xff;
-			    		//int b1 = pix1[index] & 0xff;
+			   			int g1 = (pix1[index] >> 8) & 0xff;
+			    		int b1 = pix1[index] & 0xff;
 			    		
 			    		int r2 = (pix2[index] >> 16) & 0xff;
-			    		//int g2 = (pix2[index] >> 8) & 0xff;
-			    		//int b2 = pix2[index] & 0xff;
+			    		int g2 = (pix2[index] >> 8) & 0xff;
+			    		int b2 = pix2[index] & 0xff;
 			    		
-			    		
-			    		if (Math.abs(r2-r1)>=20)
+			    		int gr1 = (r1 + g1 + b1)/3;
+		    			int gr2 = (r2 + g2 + b2)/3;
+		    			
+			    		if (Math.abs(gr2-gr1)>=20)
 			    		{
 			    			diffCount++;
 			    		}
@@ -571,12 +492,12 @@ public class CameraActivity extends Activity
 		}			
 	}
 	
-	public class HttpWebService extends AsyncTask<String, Void, Void> {
+	public class HttpWebService extends AsyncTask<String, Void, JSONObject> {
 		
 		private static final String url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/create_record3.php";
 		
 		@Override
-		protected Void doInBackground(String... params) {
+		protected JSONObject doInBackground(String... params) {
 			// TODO Auto-generated method stub
             // Building Parameters
             List<NameValuePair> param = new ArrayList<NameValuePair>();
@@ -590,7 +511,15 @@ public class CameraActivity extends Activity
             // check log cat fro response
             Log.d("Create Response", json.toString());
  
-            return null;
-		}	
+            return json;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject json) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(json);
+			text.append(json.toString() + "\n");
+		}
+		
 	}
 }
