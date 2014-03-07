@@ -8,11 +8,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.apache.commons.collections.buffer.CircularFifoBuffer;
+
 import com.example.cameraapp.util.SystemUiHider;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,9 +47,9 @@ public class CameraActivity extends Activity
 	private static Timer mTimer;
 	private CameraTimer mTask;
 	private static boolean inPreview = false;
-	private static	TextView text;
+	private static TextView text;
 	private static String timeStamp;
-
+	
 	
 	/**
 	 * Whether or not the system UI should be auto-hidden after
@@ -321,7 +327,8 @@ public class CameraActivity extends Activity
 	            inPreview = true;
 	            mTimer = new Timer();
 	            mTask = new CameraTimer();
-	            mTimer.schedule(mTask, 5000, 5000);   
+	            mTimer.schedule(mTask, 2000, 2000);   
+	            //mTimer.schedule(mTask,5000);
 	        } 
 	        catch (IOException e) 
 	        {
@@ -368,33 +375,30 @@ public class CameraActivity extends Activity
 	
 	private PictureCallback mPicture = new PictureCallback() 
 	{
+		Bitmap pic1;
+		Bitmap pic2;
+		int count = 0;
+		
 	    @Override
 	    public void onPictureTaken(byte[] data, Camera camera) 
 	    {
-	    	
-	        File pictureFile = getOutputMediaFile();
-	        if (pictureFile == null){
-	            Throwable e = null;
-				Log.d(TAG, "Error creating media file, check storage permissions: " + e.getMessage());
-				text.append("Error creating media file, check storage permissions\n");
-	            return;
-	        }
-
-	        try 
-	        {
-	            FileOutputStream fos = new FileOutputStream(pictureFile);
-	            fos.write(data);
-	            text.append("Picture saved as IMG_" + timeStamp + ".jpg\n");
-	            fos.close();
-	        } 
-	        catch (FileNotFoundException e) 
-	        {
-	            Log.d(TAG, "File not found: " + e.getMessage());
-	        } 
-	        catch (IOException e) 
-	        {
-	            Log.d(TAG, "Error accessing file: " + e.getMessage());
-	        }
+	    	if(count < 4) {
+	   			if(count == 0) {
+	   				pic1 = BitmapFactory.decodeByteArray(data, 0, data.length);
+	   				count++;
+	   			}
+	   			else if(count == 1) {
+	   				pic2 = BitmapFactory.decodeByteArray(data, 0, data.length);
+	   				new Compare().execute(pic1,pic2);
+	   				count++;
+	   			}
+	    	}
+	    	else {
+	    		pic1 = pic2;
+	    		pic2 = BitmapFactory.decodeByteArray(data, 0, data.length);
+	    		new Compare().execute(pic1,pic2);
+	    		count++;
+	    	}
 	        
 	     // Restart the preview
 	        try 
@@ -407,5 +411,70 @@ public class CameraActivity extends Activity
 	     	}
 	    }
 	};
+	
+	public class Compare extends AsyncTask<Bitmap, Void, Integer> {
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();	
+		}
+		
+		@Override
+		protected Integer doInBackground(Bitmap... params) {
+			// TODO Auto-generated method stub
+			int diffCount = 0;
+			double diffPer = 0.0;
+			int width = params[0].getWidth();
+	    	int height = params[0].getHeight();
+	    	int size = width*height;
+	    	int[] pix1 = new int[width * height];
+	    	int[] pix2 = new int[width * height];
+	    	
+	    	params[0].getPixels(pix1, 0, width, 0, 0, width, height);
+	    	params[1].getPixels(pix2, 0, width, 0, 0, width, height);
+	    	
+	    	// Apply pixel-by-pixel change
+		   	int index = 0;
+		   	for (int y = 0; y < height; y++)
+		   	{
+		   		for (int x = 0; x < width; x++)
+		   		{
+		   			int r1 = (pix1[index] >> 16) & 0xff;
+		   			int g1 = (pix1[index] >> 8) & 0xff;
+		    		int b1 = pix1[index] & 0xff;
+		    		
+		    		int r2 = (pix2[index] >> 16) & 0xff;
+		    		int g2 = (pix2[index] >> 8) & 0xff;
+		    		int b2 = pix2[index] & 0xff;
+		    		
+		    		int gr1 = (r1 + g1 + b1)/3;
+		    		int gr2 = (r2 + g2 + b2)/3;
+		    		
+		    		if (Math.abs(gr2-gr1)>=20)
+		    		{
+		    			diffCount++;
+		    		}
+		      			index++;
+		    	} // x
+		    } // y
+		   	diffPer = ((double)diffCount/size)*100;
+		
+			return (int)diffPer;
+		}
+
+		@Override
+		protected void onPostExecute(Integer result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			//text.append("Different count is " + diffCount + "\n");
+	    	//text.append("Size is " + size + "\n");
+			text.append("Difference is " + result + "%\n");
+		}
+		
+		
+		
+	}
+
 	
 }
