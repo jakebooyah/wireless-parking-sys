@@ -1,15 +1,11 @@
 package com.example.cameraapp;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.apache.commons.collections.buffer.CircularFifoBuffer;
 
 import com.example.cameraapp.util.SystemUiHider;
 import android.annotation.TargetApi;
@@ -319,16 +315,19 @@ public class CameraActivity extends Activity
 		@Override
 		public void surfaceCreated(SurfaceHolder holder) 
 		{
+			Camera.Parameters mCameraDev = mCamera.getParameters();
 			// TODO Auto-generated method stub
 			// The Surface has been created, now tell the camera where to draw the preview.
 	        try {
+	        	
+	        	mCameraDev.setColorEffect(android.hardware.Camera.Parameters.EFFECT_MONO);
+	            mCamera.setParameters(mCameraDev);
 	            mCamera.setPreviewDisplay(holder);
 	            mCamera.startPreview();
 	            inPreview = true;
 	            mTimer = new Timer();
 	            mTask = new CameraTimer();
-	            mTimer.schedule(mTask, 2000, 2000);   
-	            //mTimer.schedule(mTask,5000);
+	            mTimer.schedule(mTask, 5000, 5000);   
 	        } 
 	        catch (IOException e) 
 	        {
@@ -377,12 +376,13 @@ public class CameraActivity extends Activity
 	{
 		Bitmap pic1;
 		Bitmap pic2;
+		Bitmap pic3;
 		int count = 0;
 		
 	    @Override
 	    public void onPictureTaken(byte[] data, Camera camera) 
 	    {
-	    	if(count < 4) {
+	    	if(count < 3) {
 	   			if(count == 0) {
 	   				pic1 = BitmapFactory.decodeByteArray(data, 0, data.length);
 	   				count++;
@@ -390,6 +390,11 @@ public class CameraActivity extends Activity
 	   			else if(count == 1) {
 	   				pic2 = BitmapFactory.decodeByteArray(data, 0, data.length);
 	   				new Compare().execute(pic1,pic2);
+	   				count++;
+	   			}
+	   			else if(count == 2) {
+	   				pic3 = BitmapFactory.decodeByteArray(data, 0, data.length);
+	   				new Compare().execute(pic1,pic2,pic3);
 	   				count++;
 	   			}
 	    	}
@@ -430,35 +435,64 @@ public class CameraActivity extends Activity
 	    	int size = width*height;
 	    	int[] pix1 = new int[width * height];
 	    	int[] pix2 = new int[width * height];
-	    	
-	    	params[0].getPixels(pix1, 0, width, 0, 0, width, height);
-	    	params[1].getPixels(pix2, 0, width, 0, 0, width, height);
+	    	int[] pix3 = new int[width * height];
 	    	
 	    	// Apply pixel-by-pixel change
-		   	int index = 0;
-		   	for (int y = 0; y < height; y++)
-		   	{
-		   		for (int x = 0; x < width; x++)
-		   		{
-		   			int r1 = (pix1[index] >> 16) & 0xff;
-		   			int g1 = (pix1[index] >> 8) & 0xff;
-		    		int b1 = pix1[index] & 0xff;
-		    		
-		    		int r2 = (pix2[index] >> 16) & 0xff;
-		    		int g2 = (pix2[index] >> 8) & 0xff;
-		    		int b2 = pix2[index] & 0xff;
-		    		
-		    		int gr1 = (r1 + g1 + b1)/3;
-		    		int gr2 = (r2 + g2 + b2)/3;
-		    		
-		    		if (Math.abs(gr2-gr1)>=20)
+		   	if(params.length == 2) {
+		   		params[0].getPixels(pix1, 0, width, 0, 0, width, height);
+		    	params[1].getPixels(pix2, 0, width, 0, 0, width, height);
+		   		int index = 0;
+		   		for (int y = 0; y < height; y++)
+			   	{
+			   		for (int x = 0; x < width; x++)
+			   		{
+			   			int r1 = (pix1[index] >> 16) & 0xff;
+			   			//int g1 = (pix1[index] >> 8) & 0xff;
+			    		//int b1 = pix1[index] & 0xff;
+			    		
+			    		int r2 = (pix2[index] >> 16) & 0xff;
+			    		//int g2 = (pix2[index] >> 8) & 0xff;
+			    		//int b2 = pix2[index] & 0xff;
+			    		
+			    		
+			    		if (Math.abs(r2-r1)>=20)
+			    		{
+			    			diffCount++;
+			    		}
+			      			index++;
+			    	} // x
+			    } // y
+			   	diffPer = ((double)diffCount/size)*100;
+		   	}
+		   	else if(params.length == 3) {
+		   		params[0].getPixels(pix1, 0, width, 0, 0, width, height);
+		    	params[1].getPixels(pix2, 0, width, 0, 0, width, height);
+		    	params[2].getPixels(pix3, 0, width, 0, 0, width, height);
+		    	int index = 0;
+		    	for (int y = 0; y < height; y++)
+		    	{
+		    		for (int x = 0; x < width; x++)
 		    		{
-		    			diffCount++;
-		    		}
-		      			index++;
-		    	} // x
-		    } // y
-		   	diffPer = ((double)diffCount/size)*100;
+		    			int r1 = (pix1[index] >> 16) & 0xff;
+		    			
+		    			int r2 = (pix2[index] >> 16) & 0xff;
+		    			
+		    			int r = (r1 + r2)/2;
+		    			
+		    			int r3 = (pix3[index] >> 16) & 0xff;
+		    			
+			    		if (Math.abs(r3-r)>=20)
+			    		{
+			    			diffCount++;
+			    		}
+		    			
+		    			index++;
+		    		} // x
+		    	} // y
+		    	diffPer = ((double)diffCount/size)*100;
+
+		   	}
+		   	
 		
 			return (int)diffPer;
 		}
