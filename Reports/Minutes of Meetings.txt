@@ -677,3 +677,26 @@ Continue doing the first protottypes:
 3) Design the map - Syamil
 
 ------------------------------------------------------------------------
+
+Meeting: Formal 6
+Date: 6/03/2014
+Time: 1600-1700
+Venue: Selvaraj's Office
+
+Attendance:
+Zhi En
+Michael
+Wei Qi
+Syamil
+
+- Showing the progression of our froup project to Mr Selvaraj
+- He gave some advice about our project:
+   - image processing interrupt your time (care)
+   - try to make many demonstrate
+   - need to have slack time(backup plan)
+   - if possible make counter showing how many slot is free  
+
+Make a small informal meeting straight away after the formal meeting to discuss about our next milestone.
+1) Combining the developed part from last week
+2) Making the UI of the application
+3) Refining the maps 
