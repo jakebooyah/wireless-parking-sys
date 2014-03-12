@@ -357,18 +357,22 @@ public class CameraActivity extends Activity
 	    @Override
 	    public void onPictureTaken(byte[] data, Camera camera) 
 	    {
-	    	if(count < 2) {
-	   			if(count == 0) {
+	    	if(count < 2) 
+	    	{
+	   			if(count == 0) 
+	   			{
 	   				pic1 = BitmapFactory.decodeByteArray(data, 0, data.length);
 	   				count++;
 	   			}
-	   			else if(count == 1) {
+	   			else if(count == 1) 
+	   			{
 	   				pic2 = BitmapFactory.decodeByteArray(data, 0, data.length);
 	   				new Compare().execute(pic1,pic2);
 	   				count++;
 	   			}
 	    	}
-	    	else {
+	    	else 
+	    	{
 	    		pic1 = pic2;
 	    		pic2 = BitmapFactory.decodeByteArray(data, 0, data.length);
 	    		new Compare().execute(pic1,pic2);
@@ -387,10 +391,12 @@ public class CameraActivity extends Activity
 	    }
 	};
 	
-	public class Compare extends AsyncTask<Bitmap, Void, Integer> {
+	public class Compare extends AsyncTask<Bitmap, Void, Integer> 
+	{
 
 		@Override
-		protected void onPreExecute() {
+		protected void onPreExecute() 
+		{
 			// TODO Auto-generated method stub
 			super.onPreExecute();	
 		}
@@ -407,10 +413,12 @@ public class CameraActivity extends Activity
 	    	int[] pix2 = new int[width * height];
 	    	
 	    	// Apply pixel-by-pixel change
-		   	if(params.length == 2) {
+		   	if(params.length == 2) 
+		   	{
 		   		params[0].getPixels(pix1, 0, width, 0, 0, width, height);
 		    	params[1].getPixels(pix2, 0, width, 0, 0, width, height);
 		   		int index = 0;
+
 		   		for (int y = 0; y < height; y++)
 			   	{
 			   		for (int x = 0; x < width; x++)
