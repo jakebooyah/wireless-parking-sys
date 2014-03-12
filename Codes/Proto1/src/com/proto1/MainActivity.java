@@ -47,11 +47,10 @@ public class MainActivity extends Activity
 	
 	public class CameraTimer extends TimerTask 
 	{
-
 		@Override
 		public void run() 
 		{
-			//takePic1();
+			takePic1();
 			//takePic2();
 			//compare();
 			//swap();
@@ -212,13 +211,27 @@ public class MainActivity extends Activity
 	public void takePic1()
 	{
 		mCamera.takePicture(null, null, mPicture1);
-		text.append("Picture1 Captured\n");
+		MainActivity.this.runOnUiThread(new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				text.append("Picture1 Captured\n");
+			}
+		});
 	}
 	
 	private void takePic2()
 	{
 		mCamera.takePicture(null, null, mPicture2);
-		text.append("Picture2 Captured\n");
+		MainActivity.this.runOnUiThread(new Runnable() 
+		{
+			@Override
+			public void run() 
+			{
+				text.append("Picture2 Captured\n");
+			}
+		});
 	}
 	
 	private void compare()
