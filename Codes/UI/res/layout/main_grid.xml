@@ -1,54 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnCount="3"
-    android:orientation="vertical"
-    android:rowCount="2"
-    android:useDefaultMargins="true" >
-
-    <ImageButton
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    
+ 	<LinearLayout
+		android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+		
+ 	    <ImageButton
+        android:id="@+id/imageButton_map"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:layout_weight="1"
+        android:src="@drawable/ic_map"
+        android:padding="20dp" />
+ 	    
+ 	    <ImageButton
         android:id="@+id/imageButton_find"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="216dp"
-        android:layout_height="202dp"
-        android:layout_column="0"
-        android:layout_gravity="fill_horizontal|top"
-        android:layout_row="0"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_find" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:layout_weight="1"
+        android:src="@drawable/ic_find"
+        android:padding="20dp" />
+ 	</LinearLayout>
+ 	
+ 	<LinearLayout
+ 	    android:layout_width="fill_parent"
+ 	    android:layout_height="wrap_content"
+ 	    android:orientation="horizontal">
+		
+		<TextView
+       		android:id="@+id/TextView_map"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:gravity="center"
+        	android:text="@string/main_map" /> 
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="169dp"
-        android:layout_height="191dp"
-        android:layout_column="0"
-        android:layout_gravity="left|top"
-        android:layout_row="1"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_where" />
+    	<TextView 
+    	    android:id="@+id/TextView_find"
+        	android:layout_height="fill_parent" 
+        	android:layout_width="fill_parent"
+        	android:layout_weight="1" 
+        	android:gravity="center"
+        	android:text="@string/action_search" />
+    </LinearLayout>
+		
+    <LinearLayout
+   		android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_weight="1">
+    	
+        <ImageButton
+        	android:id="@+id/imageButton_where"
+        	style="?android:attr/borderlessButtonStyle"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:scaleType="fitCenter"
+        	android:layout_weight="1"
+        	android:src="@drawable/ic_where"
+        	android:padding="20dp" />
+        
+        <ImageButton
+            android:id="@+id/imageButton_settings"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:layout_weight="1"
+            android:src="@drawable/ic_settings"
+            android:padding="20dp"/>
+	</LinearLayout>
 
-    <ImageButton
-        android:id="@+id/imageButton_where"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="186dp"
-        android:layout_height="178dp"
-        android:layout_column="1"
-        android:layout_gravity="fill_horizontal|bottom"
-        android:layout_row="0"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_map" />
+	<LinearLayout
+ 	    android:layout_width="fill_parent"
+ 	    android:layout_height="wrap_content"
+ 	    android:orientation="horizontal"
+ 	    android:paddingBottom="10dp">
+		
+		<TextView
+       		android:id="@+id/TextView_where"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	android:layout_weight="1"
+        	android:gravity="center"
+        	android:paddingBottom="10dp"
+        	android:text="@string/main_where" /> 
 
-    <ImageButton
-        android:id="@+id/imageButton_settings"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="145dp"
-        android:layout_height="190dp"
-        android:layout_column="1"
-        android:layout_gravity="left|top"
-        android:layout_row="1"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_settings" />
+    	<TextView 
+    	    android:id="@+id/TextView_settings"
+        	android:layout_height="fill_parent" 
+        	android:layout_width="fill_parent"
+        	android:layout_weight="1" 
+        	android:gravity="center"
+        	android:paddingBottom="10dp"
+        	android:text="@string/main_settings" />  	
+	</LinearLayout>
 
-</GridLayout>
+
+</LinearLayout> 	
