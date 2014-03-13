@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#fff3f3f3" >
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        
+        <TextView 
+			android:id="@+id/TextView_Setting1"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:text="Sample Setting"
+            android:textSize="16sp"
+            android:padding="10dp" />
+        
+       <Switch
+           android:layout_weight="1"
+           android:layout_height="wrap_content"
+           android:layout_width="0dp"
+           android:gravity="center"
+           android:padding="10dp" />
+        
+    </LinearLayout>
+    
+    <View 
+        android:background="?android:attr/listDivider" 
+        android:layout_height="1dp" 
+        android:layout_width="fill_parent"/>
+    
+    <LinearLayout 
+    	android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        
+        <TextView 
+            android:id="@+id/TextView_Setting2"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:text="Sample Setting"
+            android:textSize="16sp"
+            android:padding="10dp" />
+        
+       <Switch
+           android:id="@+id/Switch1"
+           android:layout_weight="1"
+           android:layout_height="wrap_content"
+           android:layout_width="0dp"
+           android:gravity="center"
+           android:padding="10dp" />
+        
+    </LinearLayout>
+    
+    <View 
+        android:background="?android:attr/listDivider" 
+        android:layout_height="1dp" 
+        android:layout_width="fill_parent"/>
+    
+    <Button
+        android:id="@+id/Button1"
+        android:text="Sample Setting"
+        android:textSize="16sp"
+		style="?android:attr/borderlessButtonStyle"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent" />"
+    
+</LinearLayout>

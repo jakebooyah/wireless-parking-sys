@@ -8,7 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends Activity {
-
+	
+	View v; //View used as a parameter to actionbar method being called
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class MainActivity extends Activity {
 			//openSearch();
 			return true;
 		case R.id.action_settings:
-			//openSettings();
+			signalSettings(v);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -40,6 +41,11 @@ public class MainActivity extends Activity {
 	
 	public void signalMap(View view){
 		Intent intent = new Intent(this, MapActivity.class);
+	    startActivity(intent);  
+	}
+	
+	public void signalSettings(View view){
+		Intent intent = new Intent(this, SettingsActivity.class);
 	    startActivity(intent);  
 	}
 

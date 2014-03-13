@@ -21,7 +21,7 @@ public class MapActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_section);
     
-        // Initilization
+        // Initialisation
         Tab = (ViewPager) findViewById(R.id.pager);
         TabAdapter = new TabPagerAdapter(getSupportFragmentManager());
  
