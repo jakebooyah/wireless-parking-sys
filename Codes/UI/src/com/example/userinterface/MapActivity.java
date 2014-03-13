@@ -19,9 +19,9 @@ public class MapActivity extends FragmentActivity implements ActionBar.TabListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_section);
- 
+    
         // Initilization
-        //viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         actionBar = getActionBar();
         mAdapter = new TabPagerAdapter(getSupportFragmentManager());
  

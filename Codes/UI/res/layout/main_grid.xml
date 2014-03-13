@@ -18,7 +18,8 @@
         android:scaleType="fitCenter"
         android:layout_weight="1"
         android:src="@drawable/ic_map"
-        android:padding="20dp" />
+        android:padding="20dp"
+        android:onClick="signalMap" />
  	    
  	    <ImageButton
         android:id="@+id/imageButton_find"

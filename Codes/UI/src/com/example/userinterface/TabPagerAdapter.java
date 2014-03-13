@@ -15,13 +15,13 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
 		switch (index){
 		case 0:
 			//Fragment for all tab
-			//return new allFragment();
+			return new allFragment();
 		case 1:
 			//Fragment for zoneA tab
-			//return zoneAFragment();
+			return new zoneAFragment();
 		case 2:
 			//Fragment for zoneB tab
-			//return zoneBFragment();
+			return new zoneBFragment();
 		}
 		return null;
 	}

@@ -2,8 +2,10 @@ package com.example.userinterface;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends Activity {
 
@@ -34,6 +36,11 @@ public class MainActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	public void signalMap(View view){
+		Intent intent = new Intent(this, MapActivity.class);
+	    startActivity(intent);  
 	}
 
 }
