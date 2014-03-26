@@ -701,3 +701,26 @@ Make a small informal meeting straight away after the formal meeting to discuss 
 1) Combining the developed part from last week
 2) Making the UI of the application
 3) Refining the maps 
+
+
+Meeting: Informal 13
+Date: 14/03/2014
+Time: 1600-1800
+Venue: Jake's Place
+
+Attendance:
+Zhi En
+Michael
+Wei Qi
+
+- Showing the progression of our individual assignments
+- Evaluation of what has been completed:
+   - Checking on design of android app
+   - testing of car detection app and tuning
+   - Discussion of possible implementation of map
+- Confirm workings of the server and ability to edit from android application
+
+Assignments for our next milestone.
+1) Combining the server editing code with camera detection code
+2) Make the side menu for the UI of the application
+3) Figure out how to implement maps  
