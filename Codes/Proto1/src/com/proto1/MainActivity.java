@@ -7,7 +7,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import com.proto1.JSONParser;
@@ -17,9 +23,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -28,6 +37,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity
 {
+	private static final String TAG = null;
 	private TextView text;
 	private Camera mCamera;
 	private SurfaceView cameraPreview;
@@ -74,7 +84,7 @@ public class MainActivity extends Activity
 				public void run() 
 				{
 			    	text.append("\nTimerTask\n");
-				}
+			   }
 			});
 			if (pic1==null)
 			{
@@ -85,6 +95,13 @@ public class MainActivity extends Activity
 				takePic2();				
 			}		
 		}			
+	}
+	
+	private boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 	
 	public void getCamera() 
@@ -334,7 +351,9 @@ public class MainActivity extends Activity
 			{
 				status = "0";
 			}
-			new HttpWebService().execute("zhidragon",status);
+			if(isNetworkAvailable()) {
+				new HttpWebService().execute("zhidragon",status);
+			}
 		}
 	}
 	

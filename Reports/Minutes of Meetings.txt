@@ -1,4 +1,4 @@
-﻿Minutes Of Meetings
+Minutes Of Meetings
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
@@ -653,6 +653,7 @@ To do:
 -Implementation of the parking lot simulation model.
 
 ----------------------------------------------------------------------------------------------------------------
+
 Meeting: Informal 12
 Date: 27/02/2014
 Time: 1600-1700
@@ -671,7 +672,7 @@ Discussed
 - Discuss the layout of the map to be used.
 
 To Do:
-Continue doing the first protottypes:
+Continue doing the first prototypes:
 1) Improving the camera module and algorithm - Jake
 2) Making database - Zhi & Mike
 3) Design the map - Syamil
@@ -689,7 +690,7 @@ Michael
 Wei Qi
 Syamil
 
-- Showing the progression of our froup project to Mr Selvaraj
+- Showing the progression of our group project to Mr Selvaraj
 - He gave some advice about our project:
    - image processing interrupt your time (care)
    - try to make many demonstrate
