@@ -702,6 +702,7 @@ Make a small informal meeting straight away after the formal meeting to discuss 
 2) Making the UI of the application
 3) Refining the maps 
 
+------------------------------------------------------------------------
 
 Meeting: Informal 13
 Date: 14/03/2014
@@ -724,3 +725,32 @@ Assignments for our next milestone.
 1) Combining the server editing code with camera detection code
 2) Make the side menu for the UI of the application
 3) Figure out how to implement maps  
+
+------------------------------------------------------------------------
+
+Meeting: Informal 14
+Date: 20/03/2014
+Time: 1600-1800
+Venue: Jake's Place
+
+Attendance:
+Zhi En
+Michael
+Wei Qi
+Syamil
+
+- Showing the progression of our individual assignments
+- Evaluation of what has been completed:
+   - Demonstration of semi-completed side menu of android app (lack of ActionListener)
+   - Testing of car detection app and further tuning to improve accuracy
+   - Discussion of possible implementation of car park simulation model
+      - How to build the car park model?
+      - How to obtain car models?
+      - How to implement camera holder?
+
+Assignments for our next milestone.
+1) Complete the side menu with fully functioning ActionListeners.
+2) Figure out how to implement maps on android app.
+3) Obtain the car models for testing and demonstration purposes.
+4) Print out car park layout and create the whole simulation model hardware.
+

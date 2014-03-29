@@ -66,10 +66,6 @@ public class MainActivity extends Activity
 		getCamera();
 		getPreview();
 			
-		mTimer = new Timer();
-        mTask = new CameraTimer();
-        mTimer.schedule(mTask, 7000, 7000);		
-        
 	}
 	
 	public class CameraTimer extends TimerTask 
@@ -188,6 +184,9 @@ public class MainActivity extends Activity
 	            mCamera.setPreviewDisplay(holder);
 	            mCamera.startPreview();  
 	            inPreview = true;
+	            mTimer = new Timer();
+	            mTask = new CameraTimer();
+	            mTimer.schedule(mTask, 7000, 7000);		
 	        } 
 	        catch (IOException e) 
 	        {
@@ -359,7 +358,7 @@ public class MainActivity extends Activity
 	
 	public class HttpWebService extends AsyncTask<String, Void, String> {
 		
-		private static final String url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/create_record3.php";
+		private static final String url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/update_record.php";
 		
 		@Override
 		protected String doInBackground(String... params) 
