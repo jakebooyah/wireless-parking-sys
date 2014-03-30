@@ -24,7 +24,7 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_launcher</item>
-        <item>@drawable/ic_launcher</item> <!-- To change and differentiate from Home icon -->
+        <item>@drawable/drawer_launcher</item> <!-- To change and differentiate from Home icon -->
         <item>@drawable/drawer_find</item>
         <item>@drawable/drawer_where</item>
         <item>@drawable/drawer_settings</item>

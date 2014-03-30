@@ -26,7 +26,7 @@
 
     <!-- ActionBar styles -->
     <style name="MyActionBar"
-           parent="@android:style/Widget.Holo.Light.ActionBar">
+           parent="@android:style/Widget.Holo.Light.ActionBar" >
         <item name="android:background">#33b5e5</item>
         <item name="android:titleTextStyle">@style/MyTheme.ActionBar.titleTextStyle</item>
     </style>
@@ -34,6 +34,8 @@
     <style name="MyTheme.ActionBar.titleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
     	<item name="android:textColor">#FFFFFF</item>
   	</style>
+  	
+    <!-- Menu Label style -->
     
 
 </resources>

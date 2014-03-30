@@ -103,8 +103,9 @@ public class MainActivity extends Activity {
  
         if (savedInstanceState == null) {
             // on first time display view for first navigation item
-//            displayView(0);
+          //displayView(0);
         }
+        
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
