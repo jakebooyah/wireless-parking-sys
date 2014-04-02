@@ -10,10 +10,18 @@
     <string name="main_where"> Where </string>
     <string name="action_refresh"> Refresh </string>
     <string name="action_location_found"> Location Found </string>
-    <string name="action_about"> About </string>  
+    <string name="action_about"> About </string>
+    <string name="find_heading"> Find Parking </string> 
+   	<string name="selection_red"> Red </string> 
+    <string name="selection_yellow"> Yellow </string>
+    <string name="find_settings"> Include: </string>
+    
+    <string-array name="spinner_find">
+        <item >House A</item>
+        <item >House B</item>
+    </string-array>
     
     <string-array name="nav_drawer_items">
-        <item >Home</item>
         <item >Map</item>
         <item >Find</item>
         <item >Where</item>
@@ -23,9 +31,8 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/drawer_launcher</item> <!-- To change and differentiate from Home icon -->
-        <item>@drawable/drawer_find</item>
+        <item>@drawable/drawer_map</item>
+        <item>@drawable/drawer_find</item> <!-- To change and differentiate from Home icon -->
         <item>@drawable/drawer_where</item>
         <item>@drawable/drawer_settings</item>
     </array>

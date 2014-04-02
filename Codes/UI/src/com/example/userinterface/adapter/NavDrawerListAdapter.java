@@ -49,10 +49,6 @@ public class NavDrawerListAdapter extends BaseAdapter {
 	        imgIcon.setImageResource(navDrawerItems.get(position).getIcon());        
 	        txtTitle.setText(navDrawerItems.get(position).getTitle());
 	         
-	        // displaying count
-	        // check whether it set visible or not
-	       
-	         
 	        return convertView;
 	    }
 	

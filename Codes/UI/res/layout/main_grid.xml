@@ -6,129 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="#fff3f3f3">
-    
- 	<LinearLayout
-		android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-		
- 	    <ImageButton
-        android:id="@+id/imageButton_map"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="fitCenter"
-        android:layout_weight="1"
-        android:src="@drawable/ic_map"
-        android:padding="5dp"
-        android:onClick="signalMap" />
- 	    
- 	    <ImageButton
-        android:id="@+id/imageButton_find"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="fitCenter"
-        android:layout_weight="1"
-        android:src="@drawable/ic_find"
-        android:padding="5dp" />
- 	</LinearLayout>
- 	
- 	<LinearLayout
- 	    android:layout_width="fill_parent"
- 	    android:layout_height="wrap_content"
- 	    android:orientation="horizontal"
- 	    android:layout_weight="2" >
-		
-		<TextView
-       		android:id="@+id/TextView_map"
-        	android:layout_width="fill_parent"
-        	android:layout_height="fill_parent"
-        	android:fontFamily="sans-serif-condensed"
-        	android:textStyle="bold|italic"
-        	android:textSize="20sp"
-        	android:layout_weight="1"
-        	android:gravity="center"
-        	android:text="@string/main_map" /> 
-
-    	<TextView 
-    	    android:id="@+id/TextView_find"
-        	android:layout_height="fill_parent" 
-        	android:layout_width="fill_parent"
-        	android:fontFamily="sans-serif-condensed"
-        	android:textStyle="bold|italic"
-        	android:textSize="20sp"
-        	android:layout_weight="1" 
-        	android:gravity="center"
-        	android:text="@string/action_search" />
-    </LinearLayout>
-		
-    <LinearLayout
-   		android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="horizontal"
-    	android:layout_weight="1">
-    	
-        <ImageButton
-        	android:id="@+id/imageButton_where"
-        	style="?android:attr/borderlessButtonStyle"
-        	android:layout_width="fill_parent"
-        	android:layout_height="fill_parent"
-        	android:scaleType="fitCenter"
-        	android:layout_weight="1"
-        	android:src="@drawable/ic_where"
-        	android:padding="5dp" />
-        
-        <ImageButton
-            android:id="@+id/imageButton_settings"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="fitCenter"
-            android:layout_weight="1"
-            android:src="@drawable/ic_settings"
-            android:padding="5dp"
-            android:onClick="signalSettings"/>
-	</LinearLayout>
-
-	<LinearLayout
- 	    android:layout_width="fill_parent"
- 	    android:layout_height="wrap_content"
- 	    android:orientation="horizontal"
- 	    android:paddingBottom="10dp"
- 	    android:layout_weight="2" >
-		
-		<TextView
-       		android:id="@+id/TextView_where"
-        	android:layout_width="fill_parent"
-        	android:layout_height="fill_parent"
-        	android:fontFamily="sans-serif-condensed"
-        	android:textStyle="bold|italic"
-        	android:textSize="20sp"
-        	android:layout_weight="1"
-        	android:gravity="center"
-        	android:paddingBottom="10dp"
-        	android:text="@string/main_where" /> 
-
-    	<TextView 
-    	    android:id="@+id/TextView_settings"
-        	android:layout_height="fill_parent" 
-        	android:layout_width="fill_parent"
-        	android:fontFamily="sans-serif-condensed"
-        	android:textStyle="bold|italic"
-        	android:textSize="20sp"
-        	android:layout_weight="1" 
-        	android:gravity="center"
-        	android:paddingBottom="10dp"
-        	android:text="@string/main_settings" />  	
-	</LinearLayout>
-</LinearLayout>
+<!-- Framelayout to display Fragments -->
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 <!-- Listview to display slider menu -->
     <ListView
@@ -138,7 +20,12 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice"       
         android:listSelector="@drawable/ic_drawer"
-        android:background="#D8D8D8"/>
+        android:background="#FFFFFF" />
 </android.support.v4.widget.DrawerLayout>
+
+<!--  #D8D8D8 
+	  #33b5e5
+
+-->
 
 	

@@ -32,7 +32,7 @@
     </style>
 
     <style name="MyTheme.ActionBar.titleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-    	<item name="android:textColor">#FFFFFF</item>
+    	<item name="android:textColor">#FEFCFF</item>
   	</style>
   	
     <!-- Menu Label style -->

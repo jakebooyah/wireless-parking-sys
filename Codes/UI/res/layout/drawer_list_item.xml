@@ -7,23 +7,33 @@
     <ImageView
     	android:id="@+id/icon"
         android:layout_width="25dp"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:contentDescription="@string/desc_list_item_icon"
         android:src="@drawable/ic_launcher"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp" />
+    
+    <View 
+        android:background="?android:attr/listDivider" 
+        android:layout_height="1dp" 
+        android:layout_width="fill_parent"/>
+    
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_toRightOf="@id/icon"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000000"
         android:gravity="center_vertical"
-        android:paddingRight="40dp"/>    
+        android:paddingRight="40dp"
+        android:paddingTop="33dp"
+        android:paddingBottom="20dp" />    
     
 
 </RelativeLayout>

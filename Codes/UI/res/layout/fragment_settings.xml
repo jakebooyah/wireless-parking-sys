@@ -29,6 +29,8 @@
            android:padding="10dp" />
         
     </LinearLayout>
+  
+    <!-- This used to represent the black line to show the effect of separation -->
     
     <View 
         android:background="?android:attr/listDivider" 
@@ -50,7 +52,7 @@
             android:text="Sample Setting"
             android:textSize="16sp"
             android:padding="10dp" />
-        
+         
        <Switch
            android:id="@+id/Switch1"
            android:layout_weight="1"
