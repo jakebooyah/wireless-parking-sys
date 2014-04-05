@@ -44,6 +44,7 @@
             android:orientation="horizontal" >
         	
             <CheckBox
+                android:id="@+id/checkbox_red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -58,10 +59,10 @@
             	android:layout_weight="5" />
             	
             <CheckBox
+                android:id="@+id/checkbox_yellow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
-			</CheckBox>
+                android:layout_weight="1" />
                 
             <TextView
                 android:layout_width="0dp"
@@ -86,7 +87,7 @@
             android:text="Nearest to" />
         
         <Spinner
-            android:id="@+id/Spinner_Nearest" 
+            android:id="@+id/spinner_nearest" 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -99,8 +100,13 @@
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_weight="17.64"
-         android:background="#ffff00"
+         android:background="#ff0000"
          android:orientation="vertical" >
+        
+         <WebView  
+    	android:id="@+id/webview_find"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" />
         
      </LinearLayout>
     
