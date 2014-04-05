@@ -17,15 +17,16 @@
     <string name="find_settings"> Include: </string>
     
     <string-array name="spinner_find">
-        <item >House A</item>
-        <item >House B</item>
+        <item>None</item>
+        <item>Block A</item>
+        <item>Block B</item>
     </string-array>
     
     <string-array name="nav_drawer_items">
-        <item >Map</item>
-        <item >Find</item>
-        <item >Where</item>
-        <item >Settings</item>
+        <item>Map</item>
+        <item>Find</item>
+        <item>Where</item>
+        <item>Settings</item>
     </string-array>
      
     <!-- Nav Drawer List Item Icons -->
