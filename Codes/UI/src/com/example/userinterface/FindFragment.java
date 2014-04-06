@@ -58,7 +58,7 @@ public class FindFragment extends Fragment {
     }
 	
 	private void loadUrl() {
-		url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/index.php?red=" + red + "&yellow=" 
+		url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/find.php?red=" + red + "&yellow=" 
 				+ yellow + "&nearest=" + nearest;
 		myWebView.loadUrl(url);
 	}
@@ -71,7 +71,7 @@ public class FindFragment extends Fragment {
 					int pos, long id) {
 				// TODO Auto-generated method stub
 				Object item = parent.getItemAtPosition(pos);
-				nearest = item.toString();
+				nearest = item.toString().replaceAll("\\s+","").toLowerCase();
     	        loadUrl();		
 			}
 
