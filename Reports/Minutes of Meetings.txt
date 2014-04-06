@@ -1,4 +1,4 @@
-Minutes Of Meetings
+﻿Minutes Of Meetings
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
@@ -753,4 +753,44 @@ Assignments for our next milestone.
 2) Figure out how to implement maps on android app.
 3) Obtain the car models for testing and demonstration purposes.
 4) Print out car park layout and create the whole simulation model hardware.
+
+------------------------------------------------------------------------
+
+Meeting: Formal 7
+Date: 01/04/2014
+Time: 1300-1400
+Venue: Selvaraj Office
+
+Attendance:
+Zhi En
+Michael
+Wei Qi
+Syamil
+
+- Showing the progression of our group project to Mr Selvaraj:
+   - A working map display prototype which could be updated when then sensor sensed a car on the parking lot
+   - A working protoype model of sensor and car model
+- Disscussion of future sprints tasks
+- Seek advise about the poster design due 9th of april
+
+------------------------------------------------------------------------
+
+Meeting: Informal 15
+Date: 27/03/2014
+Time: 1600-1800
+Venue: Jake's Place
+
+Attendance:
+Zhi En
+Wei Qi
+Syamil
+
+- Disccussion on the poster design
+- Disccussion on how Where and Find feature will be implemented
+- Map design for demostration model
+
+Assignments for our next milestone.
+1) Complete presentable prototype with find feature
+2) Start on final report
+3) Finalise poster design
 
