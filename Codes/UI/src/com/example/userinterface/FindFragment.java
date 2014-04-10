@@ -44,8 +44,7 @@ public class FindFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         loadUrl();
                
-        return rootView;
-      
+        return rootView; 
     }
 	
 	private class Callback extends WebViewClient{  //HERE IS THE MAIN CHANGE. 
@@ -61,6 +60,7 @@ public class FindFragment extends Fragment {
 		url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/find.php?red=" + red + "&yellow=" 
 				+ yellow + "&nearest=" + nearest;
 		myWebView.loadUrl(url);
+		myWebView.reload();
 	}
 	
 	AdapterView.OnItemSelectedListener getOnItemSelectedListener() {

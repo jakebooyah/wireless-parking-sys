@@ -1,4 +1,4 @@
-﻿Minutes Of Meetings
+Minutes Of Meetings
 
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
@@ -769,8 +769,8 @@ Syamil
 
 - Showing the progression of our group project to Mr Selvaraj:
    - A working map display prototype which could be updated when then sensor sensed a car on the parking lot
-   - A working protoype model of sensor and car model
-- Disscussion of future sprints tasks
+   - A working prototype model of sensor and car model
+- Discussion of future sprints tasks
 - Seek advise about the poster design due 9th of april
 
 ------------------------------------------------------------------------
@@ -785,9 +785,9 @@ Zhi En
 Wei Qi
 Syamil
 
-- Disccussion on the poster design
-- Disccussion on how Where and Find feature will be implemented
-- Map design for demostration model
+- Discussion on the poster design
+- Discussion on how Where and Find feature will be implemented
+- Map design for demonstration model
 
 Assignments for our next milestone.
 1) Complete presentable prototype with find feature

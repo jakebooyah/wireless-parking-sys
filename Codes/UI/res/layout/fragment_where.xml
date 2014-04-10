@@ -18,7 +18,7 @@
             android:layout_marginTop="20dp"
             android:layout_weight="0.00"
             android:background="#fff3f3f3"
-            android:text="Where"
+            android:text="@string/where_heading"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -36,20 +36,32 @@
             android:layout_marginTop="20dp"
             android:layout_weight="0.00"
             android:background="#fff3f3f3"
-            android:text="Your location is saved at" />
-
-        <TextView
-            android:layout_width="260dp"
+            android:text="@string/where_settings" />
+        
+        <Spinner
+            android:id="@+id/spinner_location" 
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.11"
-            android:background="@drawable/rounded_corner_azurecolor"
-            android:gravity="center"
-            android:text="Sample Zone"
-            android:textColor="#fff3f3f3" />
+            android:layout_marginStart="20dp"
+            android:entries="@array/spinner_where"
+            android:layout_weight="0.10"/>
+
+       <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+        
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.00"
+            android:background="#fff3f3f3"
+            android:text="@string/where_saved" />
 
         <TextView
+            android:id="@+id/textview_location"
             android:layout_width="202dp"
             android:layout_height="42dp"
             android:layout_gravity="center"
@@ -57,7 +69,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_corner_heatherblue"
             android:gravity="center"
-            android:text="Sample Zone"
+            android:text="@string/saved_location"
             android:textColor="#fff3f3f3" />
     </LinearLayout>
     
@@ -67,6 +79,11 @@
          android:layout_weight="17.64"
          android:background="#ffff00"
          android:orientation="vertical" >
+        
+        <WebView  
+    		android:id="@+id/webview_where"
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent" />
         
      </LinearLayout>
     
