@@ -84,7 +84,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_weight="0.15"
-            android:text="Nearest to" />
+            android:text="@string/find_nearest" />
         
         <Spinner
             android:id="@+id/spinner_nearest" 
@@ -104,9 +104,9 @@
          android:orientation="vertical" >
         
          <WebView  
-    	android:id="@+id/webview_find"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent" />
+    		android:id="@+id/webview_find"
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent" />
         
      </LinearLayout>
     
