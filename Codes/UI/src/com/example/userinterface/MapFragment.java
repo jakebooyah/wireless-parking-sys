@@ -21,9 +21,6 @@ public class MapFragment extends Fragment {
         String url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp";
 
         WebSettings webSettings = myWebView.getSettings();
-        myWebView.setInitialScale(1);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setJavaScriptEnabled(true);
 
