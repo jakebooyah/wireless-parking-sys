@@ -16,17 +16,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.util.Log;
 
 public class JSONParser {
-	private static final String TAG = null;
 	static InputStream is = null;
     static JSONObject jObj = null;
     static String json = "";
@@ -51,13 +46,10 @@ public class JSONParser {
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(url);
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
-                HttpResponse httpResponse;
-                //if(isNetworkAvailable()) {
-                	httpResponse = httpClient.execute(httpPost);
-                	HttpEntity httpEntity = httpResponse.getEntity();
-                    is = httpEntity.getContent();
-                //}
-                
+ 
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
  
             }else if(method == "GET"){
                 // request method is GET
@@ -101,38 +93,5 @@ public class JSONParser {
         // return JSON String
         return jObj;
  
-    }
-    
-    public static boolean isNetworkAvailable(){
-        HttpGet httpGet = new HttpGet("http://www.google.com");
-        HttpParams httpParameters = new BasicHttpParams();
-        // Set the timeout in milliseconds until a connection is established.
-        // The default value is zero, that means the timeout is not used.
-        int timeoutConnection = 3000;
-        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-        // Set the default socket timeout (SO_TIMEOUT)
-        // in milliseconds which is the timeout for waiting for data.
-        int timeoutSocket = 5000;
-        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-
-        DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
-        try{
-            Log.d(TAG, "Checking network connection...");
-            httpClient.execute(httpGet);
-            Log.d(TAG, "Connection OK");
-            return true;
-        }
-        catch(ClientProtocolException e){
-            e.printStackTrace();
-            Log.d(TAG, "Connection unavailable");
-            return false;
-        }
-        catch(IOException e){
-            e.printStackTrace();
-            Log.d(TAG, "Connection unavailable");
-            return false;
-        }
-
-        
     }
 }

@@ -32,12 +32,18 @@ import android.content.Context;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-public class MainActivity extends Activity
+public class MainActivity extends Activity 
 {
 	private static final String TAG = null;
+	private String sensorid;
 	private TextView text;
 	private Camera mCamera;
 	private SurfaceView cameraPreview;
@@ -65,7 +71,28 @@ public class MainActivity extends Activity
 		
 		getCamera();
 		getPreview();
-			
+		
+		Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+		spinner.setOnItemSelectedListener(getOnItemSelectedListener());
+		
+	}
+	
+	
+	AdapterView.OnItemSelectedListener getOnItemSelectedListener() 
+	{
+		return new AdapterView.OnItemSelectedListener() 
+		{
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+			{
+				Object item = parent.getItemAtPosition(pos);
+				sensorid = item.toString();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {}		
+		};
 	}
 	
 	public class CameraTimer extends TimerTask 
@@ -80,8 +107,9 @@ public class MainActivity extends Activity
 				public void run() 
 				{
 			    	text.append("\nTimerTask\n");
-			   }
+				}
 			});
+			
 			if (pic1==null)
 			{
 				takePic1();
@@ -93,9 +121,9 @@ public class MainActivity extends Activity
 		}			
 	}
 	
-	private boolean isNetworkAvailable() {
-	    ConnectivityManager connectivityManager 
-	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	private boolean isNetworkAvailable() 
+	{
+	    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
@@ -199,10 +227,6 @@ public class MainActivity extends Activity
 		@Override
 		public void surfaceDestroyed(SurfaceHolder holder) {}
 	};  
-	
-	
-
-	
 
 	private PictureCallback mPicture1 = new PictureCallback() 
 	{		
@@ -351,7 +375,7 @@ public class MainActivity extends Activity
 				status = "0";
 			}
 			if(isNetworkAvailable()) {
-				new HttpWebService().execute("zhidragon",status);
+				new HttpWebService().execute(sensorid,status);
 			}
 		}
 	}
@@ -372,7 +396,7 @@ public class MainActivity extends Activity
             // Note that create product url accepts POST method
             JSONObject json = new JSONParser().makeHttpRequest(url, "POST", param);
  
-            // check log cat fro response
+            // check log cat for response
             Log.d("Create Response", json.toString());
  
             return params[1];
@@ -382,8 +406,10 @@ public class MainActivity extends Activity
 		protected void onPostExecute(String status) 
 		{
 			super.onPostExecute(status);
-			text.append("Status is set to " + status + "\n");
+			text.append("Status of " + sensorid + " is set to " + status + "\n");
 		}
 		
 	}
+
+
 }
