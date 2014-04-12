@@ -1,7 +1,9 @@
 package com.example.userinterface;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class FindFragment extends Fragment {
 	CheckBox cbRed;
@@ -21,11 +24,17 @@ public class FindFragment extends Fragment {
 	Spinner spnNearest;
 	WebView myWebView;
 	String red, yellow, nearest, url;
+	SharedPreferences sharedPref;
+	Boolean prefUserGuide;
+	Toast toastFind;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
   
         View rootView = inflater.inflate(R.layout.fragment_find, container, false);
+        
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        prefUserGuide = sharedPref.getBoolean(SettingsFragment.KEY_PREF_USER_GUIDE, true);
         
         cbRed = (CheckBox) rootView.findViewById(R.id.checkbox_red);
         cbYellow = (CheckBox) rootView.findViewById(R.id.checkbox_yellow);
@@ -43,10 +52,17 @@ public class FindFragment extends Fragment {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setJavaScriptEnabled(true);
         loadUrl();
+        
+        if(prefUserGuide) {
+        	toastFind.makeText(getActivity(), "hello world", Toast.LENGTH_LONG).show();
+        }
                
         return rootView; 
     }
-	
+
+
+
+
 	private class Callback extends WebViewClient{  //HERE IS THE MAIN CHANGE. 
 
         @Override

@@ -12,6 +12,7 @@ import com.example.userinterface.adapter.NavDrawerListAdapter;
 import com.example.userinterface.model.NavDrawerItem;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
@@ -110,6 +111,7 @@ public class MainActivity extends Activity {
             // on first time display view for first nav item
             displayView(0);
         }
+        
     }
  
     /**

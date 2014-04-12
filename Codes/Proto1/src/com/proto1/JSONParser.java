@@ -52,13 +52,10 @@ public class JSONParser {
                 HttpPost httpPost = new HttpPost(url);
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
                 HttpResponse httpResponse;
-                //if(isNetworkAvailable()) {
-                	httpResponse = httpClient.execute(httpPost);
-                	HttpEntity httpEntity = httpResponse.getEntity();
-                    is = httpEntity.getContent();
-                //}
-                
- 
+                httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
+            
             }else if(method == "GET"){
                 // request method is GET
                 DefaultHttpClient httpClient = new DefaultHttpClient();

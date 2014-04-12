@@ -14,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.proto1.JSONParser;
@@ -45,12 +46,14 @@ public class MainActivity extends Activity
 	private static Timer mTimer;
 	private CameraTimer mTask;
 	private static boolean inPreview = false;
+	private static boolean carPositive = false;
 	private Bitmap pic1 = null;
 	private Bitmap pic2 = null;
 	private String status = "0";
 	private double diffPer;
 	private int perthres = 60;
 	private int intthres = 40;
+	private int count = 2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -61,7 +64,7 @@ public class MainActivity extends Activity
 		
 		text = (TextView)findViewById(R.id.textView);
 		text.setTextColor(Color.RED);
-		text.setText("Log Start\n");
+		text.setText("Log Started\n");
 		
 		getCamera();
 		getPreview();
@@ -79,7 +82,10 @@ public class MainActivity extends Activity
 				@Override
 				public void run() 
 				{
-			    	text.append("\nTimerTask\n");
+			    	if(carPositive) 
+			    		text.append("\nVehicle Present\n");
+			    	else
+			    		text.append("\nVehicle Absent\n");
 			   }
 			});
 			if (pic1==null)
@@ -200,10 +206,6 @@ public class MainActivity extends Activity
 		public void surfaceDestroyed(SurfaceHolder holder) {}
 	};  
 	
-	
-
-	
-
 	private PictureCallback mPicture1 = new PictureCallback() 
 	{		
 		@Override
@@ -255,7 +257,7 @@ public class MainActivity extends Activity
 			@Override
 			public void run() 
 			{
-				text.append("Picture1 Captured\n");
+				text.append("Image1 Captured\n");
 			}
 		});
 	}
@@ -268,7 +270,7 @@ public class MainActivity extends Activity
 			@Override
 			public void run() 
 			{
-				text.append("Picture2 Captured\n");
+				text.append("Image" + count++ + " Captured\n");
 			}
 		});
 	}
@@ -327,7 +329,7 @@ public class MainActivity extends Activity
 				@Override
 				public void run() 
 				{
-			    	text.append("Difference is " + (int)diffPer + "%\n");
+			    	text.append("Difference: " + (int)diffPer + "%\n");
 				}
 			});
 		}
@@ -342,16 +344,21 @@ public class MainActivity extends Activity
 	{
 		if(diffPer > perthres) 
 		{
-			if(status.equals("0"))
+			if(carPositive)
 			{
-				status = "1";
+				status = "0";
+				carPositive = false;
 			}
 			else
 			{
-				status = "0";
+				status = "1";
+				carPositive = true;
 			}
 			if(isNetworkAvailable()) {
-				new HttpWebService().execute("zhidragon",status);
+				new HttpWebService().execute("B6",status);
+			}
+			else {
+				text.append("No internet connection\n");
 			}
 		}
 	}
@@ -375,14 +382,20 @@ public class MainActivity extends Activity
             // check log cat fro response
             Log.d("Create Response", json.toString());
  
-            return params[1];
+            try {
+				return json.getString("message") + json.getInt("status");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "No response from server";
+			}
 		}
 
 		@Override
-		protected void onPostExecute(String status) 
+		protected void onPostExecute(String response) 
 		{
 			super.onPostExecute(status);
-			text.append("Status is set to " + status + "\n");
+			text.append(response + "\n");
 		}
 		
 	}
