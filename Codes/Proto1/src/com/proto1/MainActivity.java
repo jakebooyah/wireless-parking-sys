@@ -33,12 +33,18 @@ import android.content.Context;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-public class MainActivity extends Activity
+public class MainActivity extends Activity 
 {
 	private static final String TAG = null;
+	private String sensorid;
 	private TextView text;
 	private Camera mCamera;
 	private SurfaceView cameraPreview;
@@ -68,7 +74,30 @@ public class MainActivity extends Activity
 		
 		getCamera();
 		getPreview();
-			
+		
+		Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+		spinner.setOnItemSelectedListener(getOnItemSelectedListener());
+		ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sensor, R.layout.spinner_item);
+		spinner.setAdapter(adapter);
+		
+	}
+	
+	
+	AdapterView.OnItemSelectedListener getOnItemSelectedListener() 
+	{
+		return new AdapterView.OnItemSelectedListener() 
+		{
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+			{
+				Object item = parent.getItemAtPosition(pos);
+				sensorid = item.toString();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {}		
+		};
 	}
 	
 	public class CameraTimer extends TimerTask 
@@ -82,12 +111,18 @@ public class MainActivity extends Activity
 				@Override
 				public void run() 
 				{
+<<<<<<< HEAD
 			    	if(carPositive) 
 			    		text.append("\nVehicle Present\n");
 			    	else
 			    		text.append("\nVehicle Absent\n");
 			   }
+=======
+			    	text.append("\nTimerTask\n");
+				}
+>>>>>>> 337fb110c896c61a6fdd170d5ba1892cde359024
 			});
+			
 			if (pic1==null)
 			{
 				takePic1();
@@ -99,9 +134,9 @@ public class MainActivity extends Activity
 		}			
 	}
 	
-	private boolean isNetworkAvailable() {
-	    ConnectivityManager connectivityManager 
-	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	private boolean isNetworkAvailable() 
+	{
+	    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
@@ -205,7 +240,11 @@ public class MainActivity extends Activity
 		@Override
 		public void surfaceDestroyed(SurfaceHolder holder) {}
 	};  
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 337fb110c896c61a6fdd170d5ba1892cde359024
 	private PictureCallback mPicture1 = new PictureCallback() 
 	{		
 		@Override
@@ -355,10 +394,14 @@ public class MainActivity extends Activity
 				carPositive = true;
 			}
 			if(isNetworkAvailable()) {
+<<<<<<< HEAD
 				new HttpWebService().execute("B6",status);
 			}
 			else {
 				text.append("No internet connection\n");
+=======
+				new HttpWebService().execute(sensorid,status);
+>>>>>>> 337fb110c896c61a6fdd170d5ba1892cde359024
 			}
 		}
 	}
@@ -379,7 +422,7 @@ public class MainActivity extends Activity
             // Note that create product url accepts POST method
             JSONObject json = new JSONParser().makeHttpRequest(url, "POST", param);
  
-            // check log cat fro response
+            // check log cat for response
             Log.d("Create Response", json.toString());
  
             try {
@@ -395,8 +438,14 @@ public class MainActivity extends Activity
 		protected void onPostExecute(String response) 
 		{
 			super.onPostExecute(status);
+<<<<<<< HEAD
 			text.append(response + "\n");
+=======
+			text.append("Status of " + sensorid + " is set to " + status + "\n");
+>>>>>>> 337fb110c896c61a6fdd170d5ba1892cde359024
 		}
 		
 	}
+
+
 }
