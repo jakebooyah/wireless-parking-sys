@@ -74,6 +74,8 @@ public class MainActivity extends Activity
 		
 		Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 		spinner.setOnItemSelectedListener(getOnItemSelectedListener());
+		ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sensor, R.layout.spinner_item);
+		spinner.setAdapter(adapter);
 		
 	}
 	
