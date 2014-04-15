@@ -111,16 +111,11 @@ public class MainActivity extends Activity
 				@Override
 				public void run() 
 				{
-<<<<<<< HEAD
 			    	if(carPositive) 
 			    		text.append("\nVehicle Present\n");
 			    	else
 			    		text.append("\nVehicle Absent\n");
 			   }
-=======
-			    	text.append("\nTimerTask\n");
-				}
->>>>>>> 337fb110c896c61a6fdd170d5ba1892cde359024
 			});
 			
 			if (pic1==null)
@@ -240,11 +235,7 @@ public class MainActivity extends Activity
 		@Override
 		public void surfaceDestroyed(SurfaceHolder holder) {}
 	};  
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 337fb110c896c61a6fdd170d5ba1892cde359024
 	private PictureCallback mPicture1 = new PictureCallback() 
 	{		
 		@Override
@@ -393,15 +384,13 @@ public class MainActivity extends Activity
 				status = "1";
 				carPositive = true;
 			}
-			if(isNetworkAvailable()) {
-<<<<<<< HEAD
-				new HttpWebService().execute("B6",status);
-			}
-			else {
-				text.append("No internet connection\n");
-=======
+			if(isNetworkAvailable()) 
+			{
 				new HttpWebService().execute(sensorid,status);
->>>>>>> 337fb110c896c61a6fdd170d5ba1892cde359024
+			}
+			else 
+			{
+				text.append("No internet connection\n");
 			}
 		}
 	}
@@ -438,11 +427,7 @@ public class MainActivity extends Activity
 		protected void onPostExecute(String response) 
 		{
 			super.onPostExecute(status);
-<<<<<<< HEAD
 			text.append(response + "\n");
-=======
-			text.append("Status of " + sensorid + " is set to " + status + "\n");
->>>>>>> 337fb110c896c61a6fdd170d5ba1892cde359024
 		}
 		
 	}

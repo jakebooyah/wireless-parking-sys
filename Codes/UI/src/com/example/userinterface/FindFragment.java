@@ -26,7 +26,7 @@ public class FindFragment extends Fragment {
 	String red, yellow, nearest, url;
 	SharedPreferences sharedPref;
 	Boolean prefUserGuide;
-	Toast toastFind;
+	Toast t1,t2,t3,t4;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -53,12 +53,30 @@ public class FindFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         loadUrl();
         
+        t1 = Toast.makeText(getActivity(),"FIND helps you locate vacant parking spots by your preferences.",Toast.LENGTH_LONG);
+        t2 = Toast.makeText(getActivity(),"First, check your parking choice...",Toast.LENGTH_LONG);
+        t3 = Toast.makeText(getActivity(),"...then select the destinated building you're heading to.",Toast.LENGTH_LONG);
+        t4 = Toast.makeText(getActivity(),"Any VACANT parking bays nearest to your destination will be highlighted in BLUE.",Toast.LENGTH_LONG);
+        
         if(prefUserGuide) {
-        	toastFind.makeText(getActivity(), "hello world", Toast.LENGTH_LONG).show();
+        	t1.show();
+        	t2.show();
+        	t3.show();
+        	t4.show();
         }
                
         return rootView; 
     }
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		t1.cancel();
+		t2.cancel();
+		t3.cancel();
+		t4.cancel();
+	}
 
 
 

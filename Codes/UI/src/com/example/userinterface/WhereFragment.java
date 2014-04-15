@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WhereFragment extends Fragment {
 	
@@ -23,11 +25,16 @@ public class WhereFragment extends Fragment {
 	String location, url, defaultValue; 
 	SharedPreferences sharedPref;
 	SharedPreferences.Editor editor;
+	Boolean prefUserGuide;
+	Toast t1,t2,t3,t4;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
   	
 		View rootView = inflater.inflate(R.layout.fragment_where, container, false);
+		
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        prefUserGuide = sharedPref.getBoolean(SettingsFragment.KEY_PREF_USER_GUIDE, true);
 
 		spnLocation = (Spinner) rootView.findViewById(R.id.spinner_location);
 		myWebView = (WebView) rootView.findViewById(R.id.webview_where);
@@ -49,10 +56,34 @@ public class WhereFragment extends Fragment {
 		
 		setSpinnerValue(spnLocation, location);
 		spnLocation.setOnItemSelectedListener(getOnItemSelectedListener());
-
+		
+		t1 = Toast.makeText(getActivity(),"Always forget where you parked? WHERE is here to save your day.",Toast.LENGTH_LONG);
+		t2 = Toast.makeText(getActivity(),"Just select your parked location...",Toast.LENGTH_LONG);
+		t3 = Toast.makeText(getActivity(),"...and simply let WHERE remember it for you.",Toast.LENGTH_LONG);
+		t4 = Toast.makeText(getActivity(),"You're welcomed.",Toast.LENGTH_LONG);
+		
+		if(prefUserGuide) {
+			t1.show();
+			t2.show();
+			t3.show();
+			t4.show();
+		}
+		
 		return rootView;
     }
 	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		t1.cancel();
+		t2.cancel();
+		t3.cancel();
+		t4.cancel();
+	}
+
+
+
 	private class Callback extends WebViewClient{  //HERE IS THE MAIN CHANGE. 
 
         @Override

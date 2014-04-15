@@ -5,18 +5,9 @@
     android:orientation="vertical" 
     android:background="#ffff00" >
     
-    <Button
-        android:id="@+id/btnShowToast"
-        android:layout_width="wrap_content"
-    	android:layout_height="wrap_content" 
-    	android:text="hello" />
-    
     <WebView  
     	android:id="@+id/webview"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent" />
     
-    
-    
-
-</LinearLayout>
+ </LinearLayout>

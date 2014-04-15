@@ -1,9 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
     <CheckBoxPreference
         android:key="pref_userGuide"
-        android:title="User Guide"
-        android:summary="teach you how to use"
+        android:title="User guide"
+        android:summaryOn="Uncheck to disable user guide"
+        android:summaryOff="Check to enable user guide"
         android:defaultValue="true" />
+    
+    <com.example.userinterface.ClearDataDialog
+        	android:title="Clear saved data"
+        	android:dialogMessage="Permanently delete saved data?"  
+        	android:positiveButtonText="OK"            
+            android:negativeButtonText="Cancel" />
+    
+    <PreferenceScreen
+        android:key="pref_about"
+        android:title="About"
+        android:persistent="false">
+        
+        <PreferenceCategory 
+        	android:title="CREDITS"
+        	android:key="pref_credits">
+        
+            <PreferenceScreen
+            	android:key="pref_developer1"
+            	android:title="Tang Wei Qi"
+            	android:summary="Code. Design."
+            	android:persistent="false" />
+            
+            <PreferenceScreen
+            	android:key="pref_developer2"
+            	android:title="Michael Muita Mugo"
+            	android:summary="Code. Design."
+            	android:persistent="false" />
+            
+            <PreferenceScreen
+            	android:key="pref_developer4"
+            	android:title="Lim Zhi En"
+            	android:summary="Code. Design."
+            	android:persistent="false" />
+            
+            <PreferenceScreen
+            	android:key="pref_developer3"
+            	android:title="Mohd Syamil"
+            	android:summary="Documentation. Design."
+            	android:persistent="false" />
+
+    	</PreferenceCategory>
+        
+        
+    </PreferenceScreen>
     
 </PreferenceScreen>
