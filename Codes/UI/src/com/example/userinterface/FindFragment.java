@@ -5,10 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -77,9 +74,6 @@ public class FindFragment extends Fragment {
 		t3.cancel();
 		t4.cancel();
 	}
-
-
-
 
 	private class Callback extends WebViewClient{  //HERE IS THE MAIN CHANGE. 
 

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" 
-        android:layout_weight="1"
+
         android:background="#fff3f3f3" >
         
         <TextView
@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_weight="0.15"
             android:background="#fff3f3f3"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -33,30 +32,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:layout_weight="0.08"
             android:background="#fff3f3f3"
             android:text="@string/find_settings" />
         
         <LinearLayout
             android:layout_width="306dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="center"
             android:orientation="horizontal" >
-        	
+            
             <CheckBox
                 android:id="@+id/checkbox_red"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="right" />
+                android:layout_height="wrap_content" 
+                android:layout_weight="1" />
 
-                
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                	android:background="#fff3f3f3"
             	android:text="@string/selection_red"
-            	android:layout_weight="5" />
+            	android:layout_weight="1" />
             	
             <CheckBox
                 android:id="@+id/checkbox_yellow"
@@ -65,11 +61,11 @@
                 android:layout_weight="1" />
                 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                	android:background="#fff3f3f3"
             	android:text="@string/selection_yellow"
-            	android:layout_weight="5" />
+            	android:layout_weight="1" />
 
         </LinearLayout>
         
@@ -83,7 +79,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_weight="0.15"
             android:text="@string/find_nearest" />
         
         <Spinner
@@ -91,15 +86,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:entries="@array/spinner_find"
-            android:layout_weight="0.10"/>
+            android:entries="@array/spinner_find" />
         
     </LinearLayout>
     
     <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:layout_weight="17.64"
+
          android:background="#ff0000"
          android:orientation="vertical" >
         

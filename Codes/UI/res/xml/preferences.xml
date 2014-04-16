@@ -19,6 +19,9 @@
         android:title="About"
         android:persistent="false">
         
+        <com.example.userinterface.LicensesDialog
+            android:title="Open Source Licenses" />
+        
         <PreferenceCategory 
         	android:title="CREDITS"
         	android:key="pref_credits">
@@ -48,8 +51,7 @@
             	android:persistent="false" />
 
     	</PreferenceCategory>
-        
-        
+               
     </PreferenceScreen>
     
 </PreferenceScreen>

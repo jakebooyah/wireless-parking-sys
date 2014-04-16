@@ -3,6 +3,7 @@ package com.example.userinterface;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -81,6 +82,18 @@ public class WhereFragment extends Fragment {
 		t3.cancel();
 		t4.cancel();
 	}
+
+	/*@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+		super.onConfigurationChanged(newConfig);
+		if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            setContentView(R.layout.fragment_where);
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.login);         
+        }
+	}*/
 
 
 

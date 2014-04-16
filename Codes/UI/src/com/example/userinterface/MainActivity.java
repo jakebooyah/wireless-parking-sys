@@ -22,7 +22,6 @@ import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -36,8 +35,8 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private Builder alert;
- 
+    private Builder alert;    
+    
     // nav drawer title
     private CharSequence mDrawerTitle;
  
@@ -174,7 +173,6 @@ public class MainActivity extends Activity {
         case 3:
             fragment = new SettingsFragment();
             break;
- 
         default:
             break;
         }

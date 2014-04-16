@@ -65,5 +65,35 @@
      
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
+    
+    <string name="header_services_json">&#8226; Services_JSON</string>
+    
+    <string name="header_jsmx">&#8226; JSMX (JavaScript MX) - This is a ColdFusion API for AJAX.</string>
+    
+    <string name="license_services_json">
+        Copyright &#169; 2005 Michal Migurski
+        \nAll rights reserved.
+        \n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+		\n\n1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+		\n\n2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+		\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    	\n\n@license
+    	\nhttp://www.opensource.org/licenses/bsd-license.php
+    	\n\n@link 
+    	\nhttp://pear.php.net/pepr/pepr-proposal-show.php?id=198
+    </string>
+    
+    <string name="license_jsmx">
+        AUTHOR: 		Todd Kingham [todd@lalabird.com] - Jan Jannek [jan.jannek@Cetecom.de]
+        \nCREATED:		8.21.2005
+		\nVERSION:		2.6.0
+        \n\nTHIS IS AN OPEN SOURCE API. YOU ARE FREE TO USE THIS API IN ANY APPLICATION,
+        TO COPY IT OR MODIFY THE FUNCTIONS FOR YOUR OWN NEEDS, AS LONG THIS HEADER INFORMATION
+        REMAINS IN TACT AND YOU DON\'T CHARGE ANY MONEY FOR IT. USE THIS API AT YOUR OWN
+        RISK. NO WARRANTY IS EXPRESSED OR IMPLIED, AND NO LIABILITY ASSUMED FOR THE RESULT OF
+        USING THIS API.
+       	\n\nTHIS API IS LICENSED UNDER THE CREATIVE COMMONS ATTRIBUTION-SHAREALIKE LICENSE.
+      	FOR THE FULL LICENSE TEXT PLEASE VISIT: http://creativecommons.org/licenses/by-sa/2.5/ 	
+    </string>
 
 </resources>
