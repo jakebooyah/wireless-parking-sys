@@ -1,4 +1,4 @@
-package com.proto1;
+package com.sensor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,16 +7,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
-import com.proto1.JSONParser;
+import com.proto1.R;
+import com.sensor.JSONParser;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,7 +32,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -45,7 +39,6 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity 
 {
-	private static final String TAG = null;
 	private String sensorid;
 	private TextView text;
 	private Camera mCamera;

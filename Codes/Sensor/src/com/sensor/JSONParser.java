@@ -1,4 +1,4 @@
-package com.proto1;
+package com.sensor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
