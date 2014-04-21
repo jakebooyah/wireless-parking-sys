@@ -46,6 +46,12 @@
 
     </ScrollView>
 
-    
+    <Button
+        android:id="@+id/flash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/frameLayout1"
+        android:layout_alignTop="@+id/frameLayout1"
+        android:text="Flash" />
 
 </RelativeLayout>

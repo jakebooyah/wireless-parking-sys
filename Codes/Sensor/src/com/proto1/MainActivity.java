@@ -1,4 +1,4 @@
-package com.sensor;
+package com.proto1;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,12 +16,13 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
-import com.sensor.JSONParser;
+import com.proto1.JSONParser;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -33,10 +34,12 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -55,8 +58,10 @@ public class MainActivity extends Activity
 	private Bitmap pic2 = null;
 	private String status = "0";
 	private double diffPer;
-	private int perthres = 30;
+	private int perthres = 60;
 	private int intthres = 20;
+	private Button flash;
+	private boolean isLighOn = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -65,18 +70,43 @@ public class MainActivity extends Activity
 		setContentView(R.layout.activity_main);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
+		flash = (Button) findViewById(R.id.flash);
 		text = (TextView)findViewById(R.id.textView);
 		text.setTextColor(Color.RED);
 		text.setText("Log Start\n");
 		
 		getCamera();
 		getPreview();
+		final Parameters p = mCamera.getParameters();
 		
 		Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 		spinner.setOnItemSelectedListener(getOnItemSelectedListener());
 		ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sensor, R.layout.spinner_item);
 		spinner.setAdapter(adapter);
 		
+		flash.setOnClickListener(new OnClickListener() 
+		{		 
+			@Override
+			public void onClick(View arg0) 
+			{
+ 
+				if (isLighOn) 
+				{
+					p.setFlashMode(Parameters.FLASH_MODE_OFF);
+					mCamera.setParameters(p);
+					isLighOn = false;
+ 
+				} 
+				else 
+				{
+					p.setFlashMode(Parameters.FLASH_MODE_TORCH);
+ 
+					mCamera.setParameters(p);
+					isLighOn = true;
+				}
+ 
+			}
+		});
 	}
 	
 	
@@ -137,6 +167,7 @@ public class MainActivity extends Activity
 	    {
 	    	mCamera = Camera.open();	
 	    	mCamera.setDisplayOrientation(90);
+
 	    }
 	    catch (Exception e)
 	    {
@@ -199,7 +230,7 @@ public class MainActivity extends Activity
 	        // start preview with new settings
 	        try 
 	        {
-	            mCamera.setPreviewDisplay(cameraPreviewHolder);
+	        	mCamera.setPreviewDisplay(cameraPreviewHolder);
 	            mCamera.startPreview();	  
 	            inPreview = true;
 	        } 
@@ -258,6 +289,7 @@ public class MainActivity extends Activity
 			pic2 = BitmapFactory.decodeByteArray(data, 0, data.length);
 			compare();
 			updateServer();
+			swap();
 		    
 			// Restart the preview
 			try 
@@ -356,15 +388,26 @@ public class MainActivity extends Activity
 				}
 			});
 		}
+		
+	private void swap() 
+	{
+		pic1 = pic2;
+		pic2 = null;
+	}
 	
 	private void updateServer()
 	{
 		if(diffPer > perthres) 
 		{
-			status = "1";
-			
-			if(isNetworkAvailable()) 
+			if(status.equals("0"))
 			{
+				status = "1";
+			}
+			else
+			{
+				status = "0";
+			}
+			if(isNetworkAvailable()) {
 				new HttpWebService().execute(sensorid,status);
 			}
 		}

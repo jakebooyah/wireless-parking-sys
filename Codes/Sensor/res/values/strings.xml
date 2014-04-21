@@ -3,7 +3,7 @@
 
     <string name="app_name">Sensor</string>
     <string name="action_settings">Settings</string>
-   
+	
     <string-array name="sensor">
         <item>A1</item>
         <item>A2</item>
@@ -22,5 +22,6 @@
         <item>B7</item>
         <item>B8</item>    
     </string-array>
+
 
 </resources>
