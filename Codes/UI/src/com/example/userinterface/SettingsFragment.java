@@ -1,3 +1,8 @@
+/* Written by:
+ * Michael (Main UI Frame)
+ * Lim Zhi En (User Guide, Settings Features)
+*/
+
 package com.example.userinterface;
 
 import com.example.userinterface.R;

@@ -1,3 +1,8 @@
+/* Written by:
+ * Michael (Main UI Frame)
+ * Lim Zhi En (User Guide, Find Features)
+*/
+
 package com.example.userinterface;
 
 import android.app.Fragment;

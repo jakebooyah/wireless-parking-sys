@@ -1,3 +1,9 @@
+/* Written by:
+ * Michael (Main UI Frame)
+ * Tang Wei Qi (Webview)
+ * Lim Zhi En (User Guide)
+*/
+
 package com.example.userinterface;
 
 import android.app.AlertDialog;

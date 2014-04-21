@@ -1,7 +1,8 @@
 /*
-Most of this code has been adapted from the following tutorial referenced:
-Tamada, R (2013) Android Sliding Menu using Navigation Drawer. Source Code. http://www.androidhive.info/2013/11/android-sliding-menu-using-navigation-drawer/
-
+ * Most of this code has been adapted from the following tutorial referenced:
+ * Tamada, R (2013) Android Sliding Menu using Navigation Drawer. Source Code. http://www.androidhive.info/2013/11/android-sliding-menu-using-navigation-drawer/
+ * Written by:
+ * Michael (Main UI Frame)
 */
 package com.example.userinterface.adapter;
 
