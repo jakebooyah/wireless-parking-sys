@@ -1,3 +1,8 @@
+/* Written by:
+ * Tang Wei Qi (Image Processing Algorithm, Camera)
+ * Lim Zhi En (Connection to Server, Camera)
+*/
+
 package com.sensor;
 
 import java.io.IOException;
@@ -39,6 +44,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity 
 {
+	//Declaration of variables
 	private String sensorid;
 	private TextView text;
 	private Camera mCamera;
@@ -51,40 +57,51 @@ public class MainActivity extends Activity
 	private Bitmap pic2 = null;
 	private String status = "0";
 	private double diffPer;
-	private int perthres = 60;
-	private int intthres = 20;
 	private Button flash;
 	private boolean isLighOn = false;
+	private int perthres = 60;	//Percentage threshold of acceptance
+	private int intthres = 20;	//Threshold for intensity differences allowed
 	
+	//On the start of the application, the application does
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
+		//Standard import of layout
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		//Keeping the screen from sleeping
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
+		//GUI components
 		flash = (Button) findViewById(R.id.flash);
 		text = (TextView)findViewById(R.id.textView);
 		text.setTextColor(Color.RED);
 		text.setText("Log Start\n");
 		
+		//Initialise the camera and preview
 		getCamera();
 		getPreview();
+		
+		//Get parameters for flash
 		final Parameters p = mCamera.getParameters();
 		
+		//GUI component: spinner selection of parking bay ID
 		Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 		spinner.setOnItemSelectedListener(getOnItemSelectedListener());
 		ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sensor, R.layout.spinner_item);
 		spinner.setAdapter(adapter);
 		
+		//Action listener for Flash toggle button
 		flash.setOnClickListener(new OnClickListener() 
 		{		 
 			@Override
 			public void onClick(View arg0) 
 			{
- 
+				//if light is on
 				if (isLighOn) 
 				{
+					//set to off
 					p.setFlashMode(Parameters.FLASH_MODE_OFF);
 					mCamera.setParameters(p);
 					isLighOn = false;
@@ -92,6 +109,7 @@ public class MainActivity extends Activity
 				} 
 				else 
 				{
+					//set to on
 					p.setFlashMode(Parameters.FLASH_MODE_TORCH);
  
 					mCamera.setParameters(p);
@@ -102,12 +120,13 @@ public class MainActivity extends Activity
 		});
 	}
 	
-	
+	//listener for spinner selection of sensor ID
 	AdapterView.OnItemSelectedListener getOnItemSelectedListener() 
 	{
 		return new AdapterView.OnItemSelectedListener() 
 		{
 
+			//capture the result
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
 			{
@@ -120,6 +139,7 @@ public class MainActivity extends Activity
 		};
 	}
 	
+	//Task to be carry out in one loop
 	public class CameraTimer extends TimerTask 
 	{
 
@@ -137,15 +157,18 @@ public class MainActivity extends Activity
 			
 			if (pic1==null)
 			{
+				//takes picture 1
 				takePic1();
 			}
 			else
 			{
+				//takes picture 2
 				takePic2();				
 			}		
 		}			
 	}
 	
+	//Checking of the internet connectivity
 	private boolean isNetworkAvailable() 
 	{
 	    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -153,6 +176,7 @@ public class MainActivity extends Activity
 	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 	
+	//Camera initialisation
 	public void getCamera() 
 	{
 	    mCamera = null;
@@ -168,6 +192,7 @@ public class MainActivity extends Activity
 	    }
 	}
 	
+	//Preview initialisation
 	public void getPreview()
 	{
 		cameraPreview = (SurfaceView)findViewById(R.id.preview);
@@ -175,6 +200,7 @@ public class MainActivity extends Activity
 		cameraPreviewHolder.addCallback(surfaceCallback);
 	}
 	
+	//When the activity is paused (Prevent crashing when multitasking)
 	@Override
 	protected void onPause() 
 	{		
@@ -188,7 +214,8 @@ public class MainActivity extends Activity
 	    inPreview=false;
 		super.onPause();
 	}
-
+	
+	//When the activity is resumed (Prevent crashing when multitasking)
 	@Override
 	protected void onResume() 
 	{		
@@ -201,6 +228,7 @@ public class MainActivity extends Activity
 		inPreview = true;
 	}
 	
+	//Surface Holder of Preview
 	SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() 
 	{
 		@Override
@@ -254,6 +282,7 @@ public class MainActivity extends Activity
 		public void surfaceDestroyed(SurfaceHolder holder) {}
 	};  
 
+	//Storing the picture captured
 	private PictureCallback mPicture1 = new PictureCallback() 
 	{		
 		@Override
@@ -269,11 +298,12 @@ public class MainActivity extends Activity
 			} 
 			catch (Exception e) 
 			{
-		        	//text.append("Failed to start preview\n");
+		      
 			}
 		}
 	};
-		
+	
+	//Storing the picutre captured
 	private PictureCallback mPicture2 = new PictureCallback() 
 	{		
 		@Override
@@ -292,11 +322,12 @@ public class MainActivity extends Activity
 			} 
 			catch (Exception e) 
 			{
-		        	//text.append("Failed to start preview\n");
+		        	
 			}
 		}
 	};
-		
+	
+	//Capturing the picture
 	public void takePic1()
 	{
 		mCamera.takePicture(null, null, mPicture1);
@@ -309,7 +340,8 @@ public class MainActivity extends Activity
 			}
 		});
 	}
-		
+	
+	//Capturing the picture
 	private void takePic2()
 	{
 		mCamera.takePicture(null, null, mPicture2);
@@ -322,7 +354,9 @@ public class MainActivity extends Activity
 			}
 		});
 	}
-		
+	
+	//Image processing algorithm
+	//Checking for changes
 	private void compare()
 	{
 		MainActivity.this.runOnUiThread(new Runnable() 
@@ -338,6 +372,7 @@ public class MainActivity extends Activity
 			int width = pic1.getWidth();
 	    	int height = pic1.getHeight();
 	    	int size = width*height;
+	    	
 	    	int[] pix1 = new int[width * height];
 	    	pic1.getPixels(pix1, 0, width, 0, 0, width, height);
 	    	
@@ -350,6 +385,7 @@ public class MainActivity extends Activity
 	    	{
 	    		for (int x = 0; x < width; x++)
 	    		{
+	    			//getting r,g,b of both pictures at coordinate
 	    			int r1 = (pix1[index] >> 16) & 0xff;
 	    			int g1 = (pix1[index] >> 8) & 0xff;
 	    			int b1 = pix1[index] & 0xff;
@@ -358,9 +394,11 @@ public class MainActivity extends Activity
 	    			int g2 = (pix2[index] >> 8) & 0xff;
 	    			int b2 = pix2[index] & 0xff;
 	    			
+	    			//converting into greyscale
 	    			int gr1 = (r1 + g1 + b1)/3;
 	    			int gr2 = (r2 + g2 + b2)/3;
 	    			
+	    			//compareing differences with threshold
 	    			if (Math.abs(gr2-gr1)>=intthres)
 	    			{
 	    				diffCount++;
@@ -370,6 +408,7 @@ public class MainActivity extends Activity
 	    		} // x
 	    	} // y
 	    	
+	    	//calculating percentage differences
 	    	diffPer = ((double)diffCount/size)*100;
 	    	
 	    	MainActivity.this.runOnUiThread(new Runnable() 
@@ -381,13 +420,15 @@ public class MainActivity extends Activity
 				}
 			});
 		}
-		
+	
+	//Swapping pic 2 to pic 1 and clear pic 2 
 	private void swap() 
 	{
 		pic1 = pic2;
 		pic2 = null;
 	}
 	
+	//Flipping switch of status
 	private void updateServer()
 	{
 		if(diffPer > perthres) 
@@ -406,6 +447,7 @@ public class MainActivity extends Activity
 		}
 	}
 	
+	//Mechanism to send data to server and update status in database
 	public class HttpWebService extends AsyncTask<String, Void, String> {
 		
 		private static final String url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/update_record.php";

@@ -1,3 +1,7 @@
+/* Written by:
+ * Lim Zhi En
+*/
+
 package com.sensor;
 
 import java.io.BufferedReader;
