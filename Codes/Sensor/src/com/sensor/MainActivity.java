@@ -13,6 +13,7 @@ import java.util.TimerTask;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.proto1.R;
@@ -61,6 +62,7 @@ public class MainActivity extends Activity
 	private boolean isLighOn = false;
 	private int perthres = 60;	//Percentage threshold of acceptance
 	private int intthres = 20;	//Threshold for intensity differences allowed
+	private int count = 2;
 	
 	//On the start of the application, the application does
 	@Override
@@ -77,7 +79,7 @@ public class MainActivity extends Activity
 		flash = (Button) findViewById(R.id.flash);
 		text = (TextView)findViewById(R.id.textView);
 		text.setTextColor(Color.RED);
-		text.setText("Log Start\n");
+		text.setText("Log Started\n");
 		
 		//Initialise the camera and preview
 		getCamera();
@@ -350,7 +352,7 @@ public class MainActivity extends Activity
 			@Override
 			public void run() 
 			{
-				text.append("Picture2 Captured\n");
+				text.append("Picture" + count++ + " Captured\n");
 			}
 		});
 	}
@@ -444,6 +446,9 @@ public class MainActivity extends Activity
 			if(isNetworkAvailable()) {
 				new HttpWebService().execute(sensorid,status);
 			}
+			else {
+				text.append("No Internet connection\n");
+			}
 		}
 	}
 	
@@ -467,14 +472,20 @@ public class MainActivity extends Activity
             // check log cat for response
             Log.d("Create Response", json.toString());
  
-            return params[1];
+            try {
+				return json.getString("message") + json.getInt("status") + "\n";
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "No response from server\n";
+			}
 		}
 
 		@Override
 		protected void onPostExecute(String status) 
 		{
 			super.onPostExecute(status);
-			text.append("Status of " + sensorid + " is set to " + status + "\n");
+			text.append(status);
 		}
 		
 	}
