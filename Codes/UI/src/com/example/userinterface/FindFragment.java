@@ -35,6 +35,7 @@ public class FindFragment extends Fragment {
   
         View rootView = inflater.inflate(R.layout.fragment_find, container, false);
         
+        //get user guide preference from Settings
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         prefUserGuide = sharedPref.getBoolean(SettingsFragment.KEY_PREF_USER_GUIDE, true);
         
@@ -44,10 +45,12 @@ public class FindFragment extends Fragment {
         myWebView = (WebView) rootView.findViewById(R.id.webview_find);
         myWebView.setWebViewClient(new Callback()); 
         
+        //set onclick listeners for checkboxes and spinner
         cbRed.setOnClickListener(getOnClickListener());
         cbYellow.setOnClickListener(getOnClickListener());
         spnNearest.setOnItemSelectedListener(getOnItemSelectedListener());
-        	
+        
+        //configure webview settings
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
@@ -55,11 +58,13 @@ public class FindFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         loadUrl();
         
+        //user guide Toast messages
         t1 = Toast.makeText(getActivity(),"FIND helps you locate vacant parking spots by your preferences.",Toast.LENGTH_LONG);
         t2 = Toast.makeText(getActivity(),"First, check your parking choice...",Toast.LENGTH_LONG);
         t3 = Toast.makeText(getActivity(),"...then select the destinated building you're heading to.",Toast.LENGTH_LONG);
         t4 = Toast.makeText(getActivity(),"Any VACANT parking bays nearest to your destination will be highlighted in BLUE.",Toast.LENGTH_LONG);
         
+        //if user guide enabled in settings, show Toast messages
         if(prefUserGuide) {
         	t1.show();
         	t2.show();
@@ -73,6 +78,7 @@ public class FindFragment extends Fragment {
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
+		//cancel all Toast messages when fragment paused
 		super.onPause();
 		t1.cancel();
 		t2.cancel();
@@ -90,12 +96,15 @@ public class FindFragment extends Fragment {
     }
 	
 	private void loadUrl() {
+		//Map page url for Find feature
 		url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/find.php?red=" + red + "&yellow=" 
 				+ yellow + "&nearest=" + nearest;
+		//load map page on webview
 		myWebView.loadUrl(url);
 		myWebView.reload();
 	}
 	
+	//onselect listener for spinner
 	AdapterView.OnItemSelectedListener getOnItemSelectedListener() {
 		return new AdapterView.OnItemSelectedListener() {
 
@@ -116,6 +125,7 @@ public class FindFragment extends Fragment {
 		};
 	}
 	
+	//onclick listener for red and yellow checkboxes
 	View.OnClickListener getOnClickListener() {
 		return new View.OnClickListener() {
         
@@ -141,9 +151,7 @@ public class FindFragment extends Fragment {
 					}
 				}
 				loadUrl();
-			}
-			
-		};
-		
+			}	
+		};	
 	}
 }

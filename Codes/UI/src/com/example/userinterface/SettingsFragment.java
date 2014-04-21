@@ -7,27 +7,20 @@ package com.example.userinterface;
 
 import com.example.userinterface.R;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+@SuppressLint("NewApi")
 public class SettingsFragment extends PreferenceFragment {
 	
 	public static final String KEY_PREF_USER_GUIDE = "pref_userGuide";
@@ -63,7 +56,6 @@ public class SettingsFragment extends PreferenceFragment {
 
     		// Apply custom home button area click listener to close the PreferenceScreen because PreferenceScreens are dialogs which swallow
     		// events instead of passing to the activity
-    		// Related Issue: https://code.google.com/p/android/issues/detail?id=4611
     		View homeBtn = dialog.findViewById(android.R.id.home);
 
     		if (homeBtn != null) {
@@ -74,7 +66,6 @@ public class SettingsFragment extends PreferenceFragment {
     				}
     			};
 
-    			// Prepare yourselves for some hacky programming
     			ViewParent homeBtnContainer = homeBtn.getParent();
 
     			// The home button is an ImageView inside a FrameLayout
@@ -96,6 +87,5 @@ public class SettingsFragment extends PreferenceFragment {
     	}
     }
     
-
 }
 

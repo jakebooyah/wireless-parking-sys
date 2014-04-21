@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 
+//This class is a custom DialogPreference listed in Settings
 public class ClearDataDialog extends DialogPreference {
 	
 	SharedPreferences sharedPref;
@@ -19,14 +20,11 @@ public class ClearDataDialog extends DialogPreference {
 	public static final int BUTTON_POSITIVE = -1;
 	public static final int BUTTON_NEGATIVE = -2;
 	
-
 	public ClearDataDialog(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
 		mContext = context;
-		this.setDialogTitle(null);
-		
-		
+		this.setDialogTitle(null);		
 	}
 
 	@Override
@@ -35,8 +33,10 @@ public class ClearDataDialog extends DialogPreference {
 		super.onClick(dialog, which);
 		
 		switch(which) {
+		//do nothing if user selects Cancel
 		case BUTTON_NEGATIVE:
 			break;
+		//delete saved SharedPreferences data if user selects OK
 		case BUTTON_POSITIVE:
 			sharedPref = ((Activity)mContext).getPreferences(Context.MODE_PRIVATE);
 			editor = sharedPref.edit();
@@ -46,5 +46,4 @@ public class ClearDataDialog extends DialogPreference {
 		}
 	}
 	
-
 }
