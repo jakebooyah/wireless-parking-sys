@@ -101,7 +101,6 @@ public class FindFragment extends Fragment {
 				+ yellow + "&nearest=" + nearest;
 		//load map page on webview
 		myWebView.loadUrl(url);
-		myWebView.reload();
 	}
 	
 	//onselect listener for spinner

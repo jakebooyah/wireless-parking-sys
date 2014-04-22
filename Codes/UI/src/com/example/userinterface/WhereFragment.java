@@ -108,7 +108,6 @@ public class WhereFragment extends Fragment {
 		url = "http://ec2-54-254-255-187.ap-southeast-1.compute.amazonaws.com/grp/find.php?location=" + location;
 		//load map page on webview
 		myWebView.loadUrl(url);
-		myWebView.reload();
 	}
 	
 	//set spinner value to be the same as SharedPreferences data
